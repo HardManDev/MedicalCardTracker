@@ -1,0 +1,13 @@
+﻿* text=auto
+
+# EOL LF (UNIX) \r
+*.sh text eol=lf
+*.md text eol=lf
+.gitignore text eol=lf
+.gitattributes text eol=lf
+
+# EOL CRLF (Windows) \r\n
+*.cs text diff=csharp eol=crlf
+*.sln text eol=crlf
+*.resx text eol=crlf
+*.csproj text eol=crlf
