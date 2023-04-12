@@ -1,0 +1,29 @@
+﻿<!--
+  ~ Copyright (c) 2023 Mikulchik Vladislav Alekseevich <hardman.dev@pm.me>.
+  ~ This software is licensed under the MIT license.
+  ~ Please see the LICENSE file for more information.
+  -->
+
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Presentation\MedicalCardTracker.Client" type="DotNetProject"
+                 factoryName=".NET Project">
+    <option name="EXE_PATH"
+            value="$PROJECT_DIR$/src/MedicalCardTracker.Client/bin/Debug/net7.0-windows/MedicalCardTracker.Client.exe"/>
+    <option name="PROGRAM_PARAMETERS" value=""/>
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/MedicalCardTracker.Client/bin/Debug/net7.0-windows"/>
+    <option name="PASS_PARENT_ENVS" value="1"/>
+    <option name="USE_EXTERNAL_CONSOLE" value="0"/>
+    <option name="USE_MONO" value="0"/>
+    <option name="RUNTIME_ARGUMENTS" value=""/>
+    <option name="PROJECT_PATH"
+            value="$PROJECT_DIR$/src/MedicalCardTracker.Client/MedicalCardTracker.Client.csproj"/>
+    <option name="PROJECT_EXE_PATH_TRACKING" value="1"/>
+    <option name="PROJECT_ARGUMENTS_TRACKING" value="1"/>
+    <option name="PROJECT_WORKING_DIRECTORY_TRACKING" value="1"/>
+    <option name="PROJECT_KIND" value="DotNetCore"/>
+    <option name="PROJECT_TFM" value="net7.0-windows"/>
+    <method v="2">
+      <option name="Build"/>
+    </method>
+  </configuration>
+</component>
