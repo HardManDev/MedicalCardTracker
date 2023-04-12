@@ -8,17 +8,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.CompilerServices;
 using AutoMapper;
 using MedicalCardTracker.Application.Interfaces;
-using MedicalCardTracker.Domain.Entities;
 
 namespace MedicalCardTracker.Application.Models.ViewModels;
 
-public class CardRequestCollectionVm : IMapWith<VmCollection<CardRequest>>, INotifyPropertyChanged
+public class CardRequestCollectionVm : IMapWith<VmCollection<CardRequestVm>>, INotifyPropertyChanged
 {
     public uint TotalCount { get; set; }
     public ObservableCollection<CardRequestVm> CardRequests { get; set; } = null!;
 
     public void Mapping(Profile profile)
-        => profile.CreateMap<VmCollection<CardRequest>, CardRequestCollectionVm>()
+        => profile.CreateMap<VmCollection<CardRequestVm>, CardRequestCollectionVm>()
             .ForMember(dest => dest.CardRequests,
                 opt =>
                     opt.MapFrom(src => src.Collection));

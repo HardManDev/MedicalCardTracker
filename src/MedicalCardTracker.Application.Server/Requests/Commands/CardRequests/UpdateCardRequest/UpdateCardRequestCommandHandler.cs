@@ -29,7 +29,13 @@ public class UpdateCardRequestCommandHandler
                 .FirstOrDefaultAsync(item => item.Id == request.Id, cancellationToken)
             ?? throw new EntityNotFoundException(nameof(CardRequest), request.Id);
 
-        Mapper.Map(request, targetCardRequest);
+        targetCardRequest.CustomerName = request.CustomerName ?? targetCardRequest.CustomerName;
+        targetCardRequest.TargetAddress = request.TargetAddress ?? targetCardRequest.TargetAddress;
+        targetCardRequest.PatientFullName = request.PatientFullName ?? targetCardRequest.PatientFullName;
+        targetCardRequest.PatientBirthDate = request.PatientBirthDate ?? targetCardRequest.PatientBirthDate;
+        targetCardRequest.Description = request.Description ?? targetCardRequest.Description;
+        targetCardRequest.Status = request.Status ?? targetCardRequest.Status;
+        targetCardRequest.Priority = request.Priority ?? targetCardRequest.Priority;
         targetCardRequest.UpdatedAt = DateTime.Now;
 
         await DbContext.SaveChangesAsync(cancellationToken);

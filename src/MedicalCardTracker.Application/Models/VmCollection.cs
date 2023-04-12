@@ -2,10 +2,12 @@
 // This software is licensed under the MIT license.
 // Please see the LICENSE file for more information.
 
+using System.Collections.ObjectModel;
+
 namespace MedicalCardTracker.Application.Models;
 
 public class VmCollection<TCollection> where TCollection : class
 {
     public uint TotalCount { get; set; }
-    public ICollection<TCollection> Collection { get; set; } = null!;
+    public ObservableCollection<TCollection> Collection { get; set; } = null!;
 }

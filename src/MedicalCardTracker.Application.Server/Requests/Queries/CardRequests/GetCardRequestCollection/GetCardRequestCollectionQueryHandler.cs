@@ -43,7 +43,7 @@ public class GetCardRequestCollectionQueryHandler
             ? query.OrderByDescending(x => x.CreatedAt)
             : query.OrderBy(x => x.CreatedAt);
 
-        var totalItems = await query.CountAsync(cancellationToken);
+        var totalItems = await DbContext.CardRequests.CountAsync(cancellationToken);
         var items = await query
             .Skip((int)request.Page * (int)request.Count)
             .Take((int)request.Count)
