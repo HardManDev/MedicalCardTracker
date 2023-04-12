@@ -24,6 +24,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{8792B906
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedicalCardTracker.Server.Tests", "tests\MedicalCardTracker.Server.Tests\MedicalCardTracker.Server.Tests.csproj", "{13835F37-0FAB-40C6-8284-0AC4A05CE2F6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedicalCardTracker.Client.Tests", "tests\MedicalCardTracker.Client.Tests\MedicalCardTracker.Client.Tests.csproj", "{4C419F97-8D76-460B-A5F1-4D47F097CF19}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,6 +40,7 @@ Global
 		{36DA5F9D-2C31-45F4-B643-0F04EC8E7D76} = {E2E8E07F-8A5C-424D-9052-BA0C058BF279}
 		{80C67BF8-7932-4900-8E6A-D7BEF0D9F91B} = {E2E8E07F-8A5C-424D-9052-BA0C058BF279}
 		{13835F37-0FAB-40C6-8284-0AC4A05CE2F6} = {8792B906-F83D-49B3-81F8-C20603A71CFA}
+		{4C419F97-8D76-460B-A5F1-4D47F097CF19} = {8792B906-F83D-49B3-81F8-C20603A71CFA}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{77A85E32-5A09-46AA-B395-051EE6F88516}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -72,5 +75,9 @@ Global
 		{13835F37-0FAB-40C6-8284-0AC4A05CE2F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{13835F37-0FAB-40C6-8284-0AC4A05CE2F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{13835F37-0FAB-40C6-8284-0AC4A05CE2F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C419F97-8D76-460B-A5F1-4D47F097CF19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C419F97-8D76-460B-A5F1-4D47F097CF19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C419F97-8D76-460B-A5F1-4D47F097CF19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C419F97-8D76-460B-A5F1-4D47F097CF19}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
