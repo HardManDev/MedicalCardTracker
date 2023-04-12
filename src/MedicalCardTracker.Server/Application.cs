@@ -2,9 +2,12 @@
 // This software is licensed under the MIT license.
 // Please see the LICENSE file for more information.
 
+using MediatR;
 using MedicalCardTracker.Application;
 using MedicalCardTracker.Application.Server.Requests;
 using MedicalCardTracker.Database;
+using MedicalCardTracker.Server.Hubs;
+using MedicalCardTracker.Server.Requests.Behaviors;
 
 namespace MedicalCardTracker.Server;
 
@@ -30,6 +33,8 @@ public class Application
         _app.MapControllers();
         _app.UseAuthorization();
         _app.UseHttpsRedirection();
+
+        _app.MapHub<NotificationHub>("/notifications");
     }
 
     public void Run()
@@ -47,7 +52,10 @@ public class Application
 
         services.AddMediatR(config =>
             config.RegisterServicesFromAssembly(typeof(BaseRequestHandler).Assembly));
+        services.AddTransient(typeof(IPipelineBehavior<,>),
+            typeof(RealTimeInteractionBehavior<,>));
 
+        services.AddSignalR();
         services.AddControllers();
 
         services.AddSwaggerGen();
