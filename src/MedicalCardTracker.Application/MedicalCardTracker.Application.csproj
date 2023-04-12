@@ -1,0 +1,40 @@
+<!--
+  - Copyright (c) 2023 Mikulchik Vladislav Alekseevich <hardman.dev@pm.me>.
+  - This software is licensed under the MIT license.
+  - Please see the LICENSE file for more information.
+  -->
+
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <Version/>
+    <Title>Medical Card Tracker</Title>
+    <Description>Software for tracking the transfer of medical cards within healthcare organizations.</Description>
+    <Copyright>Copyright (c) 2023 Mikulchik Vladislav Alekseevich &lt;hardman.dev@pm.me&gt;. All right reserved.</Copyright>
+    <PackageProjectUrl>https://github.com/HardManDev/MedicalCardTracker</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/HardManDev/MedicalCardTracker/blob/master/LICENSE</PackageLicenseUrl>
+    <RepositoryUrl>https://github.com/HardManDev/MedicalCardTracker.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <Optimize>true</Optimize>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <DebugType>full</DebugType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <DebugType>none</DebugType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MedicalCardTracker.Domain\MedicalCardTracker.Domain.csproj"/>
+  </ItemGroup>
+
+</Project>
