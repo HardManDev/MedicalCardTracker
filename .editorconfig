@@ -1,0 +1,21 @@
+# EditorConfig is awesome: http://editorconfig.org
+root = true
+
+[*.{csproj,props,targets}]
+charset = utf-8-bom
+end_of_line = crlf
+indent_size = 2
+indent_style = space
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.cs]
+charset = utf-8
+end_of_line = crlf
+indent_size = 4
+indent_style = space
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# License header
+file_header_template = Copyright (c) 2023 Mikulchik Vladislav Alekseevich <hardman.dev@pm.me>.\nThis software is licensed under the MIT license.\nPlease see the LICENSE file for more information.
