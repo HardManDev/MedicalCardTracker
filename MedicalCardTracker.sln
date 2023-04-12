@@ -10,6 +10,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedicalCardTracker.Applicat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedicalCardTracker.Application.Client", "src\MedicalCardTracker.Application.Client\MedicalCardTracker.Application.Client.csproj", "{B4C164C2-E642-4356-A608-DC8C3021AAF2}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{BBDFA2B7-2CDA-45A3-9EE7-C8F872098528}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedicalCardTracker.Database", "src\MedicalCardTracker.Database\MedicalCardTracker.Database.csproj", "{5ECAFEC8-F945-4C24-BAC2-6EE45A690C98}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,6 +24,7 @@ Global
 		{CDD34D9F-75BC-4248-8976-47EE23A62938} = {31707138-C03F-4A1F-AD15-5F99A897335A}
 		{9ACCC04C-8577-4762-9EDF-2F6BA70557C6} = {31707138-C03F-4A1F-AD15-5F99A897335A}
 		{B4C164C2-E642-4356-A608-DC8C3021AAF2} = {31707138-C03F-4A1F-AD15-5F99A897335A}
+		{5ECAFEC8-F945-4C24-BAC2-6EE45A690C98} = {BBDFA2B7-2CDA-45A3-9EE7-C8F872098528}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{77A85E32-5A09-46AA-B395-051EE6F88516}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -38,5 +43,9 @@ Global
 		{B4C164C2-E642-4356-A608-DC8C3021AAF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4C164C2-E642-4356-A608-DC8C3021AAF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B4C164C2-E642-4356-A608-DC8C3021AAF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5ECAFEC8-F945-4C24-BAC2-6EE45A690C98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5ECAFEC8-F945-4C24-BAC2-6EE45A690C98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5ECAFEC8-F945-4C24-BAC2-6EE45A690C98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5ECAFEC8-F945-4C24-BAC2-6EE45A690C98}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
