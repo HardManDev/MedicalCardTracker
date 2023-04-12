@@ -7,6 +7,7 @@ using MedicalCardTracker.Application;
 using MedicalCardTracker.Application.Server.Requests;
 using MedicalCardTracker.Database;
 using MedicalCardTracker.Server.Hubs;
+using MedicalCardTracker.Server.Middlewares;
 using MedicalCardTracker.Server.Requests.Behaviors;
 using Serilog;
 
@@ -37,6 +38,7 @@ public class Application
         _app.UseHttpsRedirection();
 
         _app.MapHub<NotificationHub>("/notifications");
+        _app.UseMiddleware<MachineFingerprintMiddleware>();
     }
 
     public void Run()
