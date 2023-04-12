@@ -8,6 +8,7 @@ using MedicalCardTracker.Application.Server.Requests;
 using MedicalCardTracker.Database;
 using MedicalCardTracker.Server.Hubs;
 using MedicalCardTracker.Server.Requests.Behaviors;
+using Serilog;
 
 namespace MedicalCardTracker.Server;
 
@@ -19,6 +20,7 @@ public class Application
     public Application(string[] args)
     {
         _builder = WebApplication.CreateBuilder(args);
+        _builder.Host.UseSerilog();
 
         ConfigureService(_builder.Services);
 
