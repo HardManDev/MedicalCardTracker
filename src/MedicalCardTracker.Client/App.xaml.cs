@@ -7,7 +7,7 @@ using System.Windows;
 
 namespace MedicalCardTracker.Client;
 
-public partial class App : Application
+public partial class App : System.Windows.Application
 {
     private void OnStartup(object sender, StartupEventArgs e)
         => throw new NotImplementedException();
