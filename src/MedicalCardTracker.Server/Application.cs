@@ -2,6 +2,10 @@
 // This software is licensed under the MIT license.
 // Please see the LICENSE file for more information.
 
+using MedicalCardTracker.Application;
+using MedicalCardTracker.Application.Server.Requests;
+using MedicalCardTracker.Database;
+
 namespace MedicalCardTracker.Server;
 
 public class Application
@@ -36,8 +40,14 @@ public class Application
             _app.Run(_builder.Configuration.GetValue<string>("Url"));
     }
 
-    private static void ConfigureService(IServiceCollection services)
+    private void ConfigureService(IServiceCollection services)
     {
+        services.AddDatabase(_builder.Configuration);
+        services.AddApplication();
+
+        services.AddMediatR(config =>
+            config.RegisterServicesFromAssembly(typeof(BaseRequestHandler).Assembly));
+
         services.AddControllers();
 
         services.AddSwaggerGen();

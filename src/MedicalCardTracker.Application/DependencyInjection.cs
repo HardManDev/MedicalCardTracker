@@ -19,7 +19,7 @@ public static class DependencyInjection
             config.AddProfile(new AssemblyMappingProfile(typeof(IMapWith<>).Assembly));
         });
         services.AddMediatR(config =>
-            config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+            config.RegisterServicesFromAssembly(Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly()));
 
         return services;
     }
