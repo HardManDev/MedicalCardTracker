@@ -4,6 +4,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{31707138-C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedicalCardTracker.Domain", "src\MedicalCardTracker.Domain\MedicalCardTracker.Domain.csproj", "{77A85E32-5A09-46AA-B395-051EE6F88516}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedicalCardTracker.Application", "src\MedicalCardTracker.Application\MedicalCardTracker.Application.csproj", "{CDD34D9F-75BC-4248-8976-47EE23A62938}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -11,11 +13,16 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{77A85E32-5A09-46AA-B395-051EE6F88516} = {31707138-C03F-4A1F-AD15-5F99A897335A}
+		{CDD34D9F-75BC-4248-8976-47EE23A62938} = {31707138-C03F-4A1F-AD15-5F99A897335A}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{77A85E32-5A09-46AA-B395-051EE6F88516}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{77A85E32-5A09-46AA-B395-051EE6F88516}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{77A85E32-5A09-46AA-B395-051EE6F88516}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{77A85E32-5A09-46AA-B395-051EE6F88516}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDD34D9F-75BC-4248-8976-47EE23A62938}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDD34D9F-75BC-4248-8976-47EE23A62938}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDD34D9F-75BC-4248-8976-47EE23A62938}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDD34D9F-75BC-4248-8976-47EE23A62938}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
