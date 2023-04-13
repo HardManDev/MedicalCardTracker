@@ -35,6 +35,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.4"/>
+    <PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="7.0.0"/>
     <PackageReference Include="Serilog.Extensions.Hosting" Version="5.0.1"/>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
   </ItemGroup>
