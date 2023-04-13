@@ -15,8 +15,8 @@ namespace MedicalCardTracker.Server;
 
 public class Application
 {
-    private readonly WebApplicationBuilder _builder;
     private readonly WebApplication _app;
+    private readonly WebApplicationBuilder _builder;
 
     public Application(string[] args)
     {
@@ -61,6 +61,7 @@ public class Application
 
         services.AddSignalR();
         services.AddControllers();
+        services.AddWindowsService();
 
         services.AddSwaggerGen();
         services.AddEndpointsApiExplorer();

@@ -45,4 +45,15 @@
     <ProjectReference Include="..\MedicalCardTracker.Database\MedicalCardTracker.Database.csproj"/>
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="appsettings.Development.json">
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Scripts\SetupAsWindowsService.ps1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>
