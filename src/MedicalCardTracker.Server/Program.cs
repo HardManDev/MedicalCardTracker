@@ -11,6 +11,15 @@ internal class Program
 {
     public static void Main(string[] args)
     {
+        var configuration = new ConfigurationBuilder()
+            .AddCommandLine(args)
+            .Build();
+
+        var workingDirectory = configuration["WorkingDirectory"];
+
+        if (workingDirectory != null)
+            Directory.SetCurrentDirectory(workingDirectory);
+
         Log.Logger = Assembly.GetExecutingAssembly().GetLogger();
 
         new Application(args).Run();
