@@ -19,7 +19,9 @@ public class DateOnlyConverter : JsonConverter<DateOnly?>
                 return date;
             case JsonTokenType.StartObject:
             {
-                var dateObj = JsonSerializer.Deserialize<DateOnlyObject>(ref reader, options);
+                var dateObj = JsonSerializer.Deserialize<DateOnlyObject>(ref reader, options)
+                              ?? throw new JsonException($"Cannot convert {reader.TokenType} to {typeof(DateOnly)}");
+
                 return new DateOnly(dateObj.Year, dateObj.Month, dateObj.Day);
             }
             default:
