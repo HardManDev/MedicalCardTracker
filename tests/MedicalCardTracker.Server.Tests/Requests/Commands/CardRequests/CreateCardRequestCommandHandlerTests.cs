@@ -2,22 +2,22 @@
 // This software is licensed under the MIT license.
 // Please see the LICENSE file for more information.
 
-using AutoMapper;
 using FluentAssertions;
 using MedicalCardTracker.Application.Models.ViewModels;
 using MedicalCardTracker.Application.Requests.Commands.CardRequests.CreateCardRequest;
-using MedicalCardTracker.Application.Server.Interfaces;
 using MedicalCardTracker.Application.Server.Requests.Commands.CardRequests.CreateCardRequest;
 using MedicalCardTracker.Domain.Enums;
+using MedicalCardTracker.Server.Tests.Fixtures;
 using Xunit;
 
 namespace MedicalCardTracker.Server.Tests.Requests.Commands.CardRequests;
 
+[Collection("CardRequestCollection")]
 public class CreateCardRequestCommandHandlerTests
     : BaseRequestHandler
 {
-    public CreateCardRequestCommandHandlerTests(IApplicationDbContext dbContext, IMapper mapper)
-        : base(dbContext, mapper)
+    public CreateCardRequestCommandHandlerTests(CardRequestFixture fixture)
+        : base(fixture)
     {
     }
 
@@ -40,7 +40,10 @@ public class CreateCardRequestCommandHandlerTests
         var result = await handler.Handle(command, CancellationToken.None);
 
         // Assert
+        result.Should().NotBeNull();
         result.Should().BeOfType<CardRequestVm>();
+        result.Should().BeEquivalentTo(command);
+
         DbContext.CardRequests.Should().ContainSingle(x =>
             x.Id != Guid.Empty &&
             x.CustomerName == command.CustomerName &&

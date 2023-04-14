@@ -2,22 +2,23 @@
 // This software is licensed under the MIT license.
 // Please see the LICENSE file for more information.
 
-using AutoMapper;
 using FluentAssertions;
 using MedicalCardTracker.Application.Requests.Commands.CardRequests.DeleteCardRequest;
 using MedicalCardTracker.Application.Server.Exceptions;
-using MedicalCardTracker.Application.Server.Interfaces;
 using MedicalCardTracker.Application.Server.Requests.Commands.CardRequests.DeleteCardRequest;
 using MedicalCardTracker.Server.Tests.Fixtures;
+using MedicalCardTracker.Tests.Fixtures;
+using MedicalCardTracker.Tests.Models.Enums;
 using Xunit;
 
 namespace MedicalCardTracker.Server.Tests.Requests.Commands.CardRequests;
 
+[Collection("CardRequestCollection")]
 public class DeleteCardRequestCommandHandlerTests
     : BaseRequestHandler
 {
-    public DeleteCardRequestCommandHandlerTests(IApplicationDbContext dbContext, IMapper mapper)
-        : base(dbContext, mapper)
+    public DeleteCardRequestCommandHandlerTests(CardRequestFixture fixture)
+        : base(fixture)
     {
     }
 
@@ -25,32 +26,38 @@ public class DeleteCardRequestCommandHandlerTests
     public async Task DeleteCardRequestCommandHandler_Success()
     {
         // Arrange
+        var command = new DeleteCardRequestCommand
+        {
+            Id = FixtureCardRequests.CardRequests[FixtureDataType.ForDelete].Id
+        };
         var handler = new DeleteCardRequestCommandHandler(DbContext, Mapper);
-        var cardRequestToDelete = FixtureCardRequests.FixtureCardRequestForDelete;
 
         // Act
-        var result = await handler.Handle(
-            new DeleteCardRequestCommand
-            {
-                Id = cardRequestToDelete.Id
-            },
-            CancellationToken.None);
+        var result = await handler.Handle(command, CancellationToken.None);
 
         // Assert
-        result.Should().Be(FixtureCardRequests.FixtureCardRequestForDelete.Id);
         result.Should().NotBeEmpty();
-        DbContext.CardRequests.Should().NotContain(cardRequestToDelete);
+        result.Should().Be(FixtureCardRequests.CardRequests[FixtureDataType.ForDelete].Id);
+
+        DbContext.CardRequests.Should()
+            .NotContain(FixtureCardRequests.CardRequests[FixtureDataType.ForDelete]);
     }
 
     [Fact]
     public async Task DeleteCardRequestCommandHandler_FailOnWrongId()
     {
         // Arrange
+        var command = new DeleteCardRequestCommand
+        {
+            Id = Guid.Empty
+        };
         var handler = new DeleteCardRequestCommandHandler(DbContext, Mapper);
 
-        // Act & Assert
-        await Assert.ThrowsAsync<EntityNotFoundException>(async () =>
-            await handler.Handle(new DeleteCardRequestCommand { Id = Guid.Empty },
-                CancellationToken.None));
+        // Act
+        var act = async () =>
+            await handler.Handle(command, CancellationToken.None);
+
+        // Assert
+        await act.Should().ThrowExactlyAsync<EntityNotFoundException>();
     }
 }
