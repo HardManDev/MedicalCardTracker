@@ -15,7 +15,6 @@ public static class MediatrRequestConvertToHttpRequest
     public static HttpRequestMessage ConvertToHttpRequest<TResponse>(this IRequest<TResponse> request,
         HttpMethod httpMethod,
         string endpoint)
-        where TResponse : class
     {
         var requestProperties = request.GetType().GetProperties();
 
