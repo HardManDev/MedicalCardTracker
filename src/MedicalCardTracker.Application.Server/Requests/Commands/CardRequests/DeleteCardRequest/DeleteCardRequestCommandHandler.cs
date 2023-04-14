@@ -13,14 +13,14 @@ using Microsoft.EntityFrameworkCore;
 namespace MedicalCardTracker.Application.Server.Requests.Commands.CardRequests.DeleteCardRequest;
 
 public class DeleteCardRequestCommandHandler
-    : BaseRequestHandler, IRequestHandler<DeleteCardRequestCommand>
+    : BaseRequestHandler, IRequestHandler<DeleteCardRequestCommand, Guid>
 {
     public DeleteCardRequestCommandHandler(IApplicationDbContext dbContext, IMapper mapper)
         : base(dbContext, mapper)
     {
     }
 
-    public async Task Handle(DeleteCardRequestCommand request,
+    public async Task<Guid> Handle(DeleteCardRequestCommand request,
         CancellationToken cancellationToken)
     {
         var targetCardRequest =
@@ -30,5 +30,7 @@ public class DeleteCardRequestCommandHandler
 
         DbContext.CardRequests.Remove(targetCardRequest);
         await DbContext.SaveChangesAsync(cancellationToken);
+
+        return targetCardRequest.Id;
     }
 }

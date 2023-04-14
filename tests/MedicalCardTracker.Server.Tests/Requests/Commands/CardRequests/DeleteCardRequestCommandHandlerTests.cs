@@ -29,9 +29,16 @@ public class DeleteCardRequestCommandHandlerTests
         var cardRequestToDelete = FixtureCardRequests.FixtureCardRequestForDelete;
 
         // Act
-        await handler.Handle(new DeleteCardRequestCommand { Id = cardRequestToDelete.Id }, CancellationToken.None);
+        var result = await handler.Handle(
+            new DeleteCardRequestCommand
+            {
+                Id = cardRequestToDelete.Id
+            },
+            CancellationToken.None);
 
         // Assert
+        result.Should().Be(FixtureCardRequests.FixtureCardRequestForDelete.Id);
+        result.Should().NotBeEmpty();
         DbContext.CardRequests.Should().NotContain(cardRequestToDelete);
     }
 
