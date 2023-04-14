@@ -4,10 +4,11 @@
 
 using System.Reflection;
 using MedicalCardTracker.Application.Logging;
-using MedicalCardTracker.Server;
 using Serilog;
 
-internal class Program
+namespace MedicalCardTracker.Server;
+
+public class Program
 {
     public static void Main(string[] args)
     {
