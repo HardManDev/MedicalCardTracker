@@ -43,6 +43,21 @@ public class Application
 
     public void Run()
     {
+        using (var scope = _app.Services.CreateScope())
+        {
+            var serviceProvider = scope.ServiceProvider;
+
+            try
+            {
+                serviceProvider.GetRequiredService<ApplicationDbContext>()
+                    .Database.EnsureCreated();
+            }
+            catch (Exception e)
+            {
+                Log.Fatal(e, "Failed to initialize database");
+            }
+        }
+
         if (_app.Environment.IsDevelopment())
             _app.Run();
         else
