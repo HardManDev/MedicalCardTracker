@@ -7,7 +7,7 @@ using MedicalCardTracker.Application.Server.Interfaces;
 
 namespace MedicalCardTracker.Application.Server.Requests;
 
-public class BaseRequestHandler
+public abstract class BaseRequestHandler
 {
     protected BaseRequestHandler(IApplicationDbContext dbContext, IMapper mapper)
         => (DbContext, Mapper) = (dbContext, mapper);
