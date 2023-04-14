@@ -2,24 +2,25 @@
 // This software is licensed under the MIT license.
 // Please see the LICENSE file for more information.
 
-using AutoMapper;
 using FluentAssertions;
 using MedicalCardTracker.Application.Models.ViewModels;
 using MedicalCardTracker.Application.Requests.Commands.CardRequests.UpdateCardRequest;
 using MedicalCardTracker.Application.Server.Exceptions;
-using MedicalCardTracker.Application.Server.Interfaces;
 using MedicalCardTracker.Application.Server.Requests.Commands.CardRequests.UpdateCardRequest;
 using MedicalCardTracker.Domain.Enums;
 using MedicalCardTracker.Server.Tests.Fixtures;
+using MedicalCardTracker.Tests.Fixtures;
+using MedicalCardTracker.Tests.Models.Enums;
 using Xunit;
 
 namespace MedicalCardTracker.Server.Tests.Requests.Commands.CardRequests;
 
+[Collection("CardRequestCollection")]
 public class UpdateCardRequestCommandHandlerTests
     : BaseRequestHandler
 {
-    public UpdateCardRequestCommandHandlerTests(IApplicationDbContext dbContext, IMapper mapper)
-        : base(dbContext, mapper)
+    public UpdateCardRequestCommandHandlerTests(CardRequestFixture fixture)
+        : base(fixture)
     {
     }
 
@@ -27,11 +28,9 @@ public class UpdateCardRequestCommandHandlerTests
     public async Task UpdateCardRequestCommandHandler_Success()
     {
         // Arrange
-        var handler = new UpdateCardRequestCommandHandler(DbContext, Mapper);
-
         var command = new UpdateCardRequestCommand
         {
-            Id = FixtureCardRequests.FixtureCardRequestForUpdate.Id,
+            Id = FixtureCardRequests.CardRequests[FixtureDataType.ForUpdate].Id,
             CustomerName = "Elesin P. H.",
             TargetAddress = "cab. 505",
             PatientFullName = "Zhivopiscev Diomid Mitrofanievich",
@@ -40,12 +39,16 @@ public class UpdateCardRequestCommandHandlerTests
             Status = CardRequestStatus.Created,
             Priority = CardRequestPriority.Urgently
         };
+        var handler = new UpdateCardRequestCommandHandler(DbContext, Mapper);
 
         // Act
         var result = await handler.Handle(command, CancellationToken.None);
 
         // Assert
+        result.Should().NotBeNull();
         result.Should().BeOfType<CardRequestVm>();
+        result.Should().BeEquivalentTo(command);
+
         DbContext.CardRequests.Should().ContainSingle(x =>
             x.Id != Guid.Empty &&
             x.CustomerName == command.CustomerName &&
@@ -63,15 +66,17 @@ public class UpdateCardRequestCommandHandlerTests
     public async Task UpdateCardRequestCommandHandler_FailOnWrongId()
     {
         // Arrange
+        var command = new UpdateCardRequestCommand
+        {
+            Id = Guid.Empty
+        };
         var handler = new UpdateCardRequestCommandHandler(DbContext, Mapper);
 
-        // Act & Assert
-        await Assert.ThrowsAsync<EntityNotFoundException>(async () =>
-            await handler.Handle(
-                new UpdateCardRequestCommand
-                {
-                    Id = Guid.Empty,
-                    Priority = CardRequestPriority.UnUrgently
-                }, CancellationToken.None));
+        // Act
+        var act = async () =>
+            await handler.Handle(command, CancellationToken.None);
+
+        // Assert
+        await act.Should().ThrowExactlyAsync<EntityNotFoundException>();
     }
 }
