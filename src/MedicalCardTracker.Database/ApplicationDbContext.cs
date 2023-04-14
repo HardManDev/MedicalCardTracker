@@ -3,6 +3,7 @@
 // Please see the LICENSE file for more information.
 
 using MedicalCardTracker.Application.Server.Interfaces;
+using MedicalCardTracker.Database.EntityTypeConfigurations;
 using MedicalCardTracker.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,13 +13,14 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
-    // TODO: Fix this unsafe code.
-        => Database.EnsureCreated();
+    {
+    }
 
     public DbSet<CardRequest> CardRequests { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.ApplyConfiguration(new CardRequestConfiguration());
         base.OnModelCreating(modelBuilder);
     }
 }
