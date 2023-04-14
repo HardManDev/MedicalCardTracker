@@ -2,8 +2,11 @@
 // This software is licensed under the MIT license.
 // Please see the LICENSE file for more information.
 
-namespace MedicalCardTracker.Client.Tests;
+namespace MedicalCardTracker.Tests.Models.Enums;
 
-public static class Startup
+public enum FixtureDataType
 {
+    Default = 0,
+    ForUpdate = 1,
+    ForDelete = 2
 }
