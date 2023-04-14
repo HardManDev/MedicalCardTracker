@@ -7,7 +7,7 @@ using MedicalCardTracker.Application.Attributes;
 
 namespace MedicalCardTracker.Application.Requests.Commands.CardRequests.DeleteCardRequest;
 
-public class DeleteCardRequestCommand : IRequest
+public class DeleteCardRequestCommand : IRequest<Guid>
 {
     [QueryParameter] public Guid Id { get; set; }
 }

@@ -75,19 +75,17 @@ public class CardRequestController : BaseController
     }
 
     [HttpDelete]
-    public async Task<IActionResult> Delete(
+    public async Task<ActionResult<Guid>> Delete(
         [FromQuery] Guid id,
         CancellationToken cancellationToken)
     {
         try
         {
-            await Mediator.Send(
+            return await Mediator.Send(
                 new DeleteCardRequestCommand
                 {
                     Id = id
                 }, CancellationToken.None);
-
-            return Ok();
         }
         catch (Exception e)
         {
