@@ -15,5 +15,9 @@ public class CardRequestConfiguration : IEntityTypeConfiguration<CardRequest>
         builder.HasKey(item => item.Id);
         builder.HasIndex(item => item.TargetAddress);
         builder.HasIndex(item => item.CreatedAt);
+        builder.Property(item => item.CreatedAt)
+            .HasColumnType("DATE");
+        builder.Property(item => item.UpdatedAt)
+            .HasColumnType("DATE");
     }
 }
