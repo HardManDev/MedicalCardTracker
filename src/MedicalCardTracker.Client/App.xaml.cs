@@ -3,8 +3,10 @@
 // Please see the LICENSE file for more information.
 
 using System;
+using System.IO;
 using System.Windows;
 using MedicalCardTracker.Application;
+using MedicalCardTracker.Application.Client.Configuration;
 using MedicalCardTracker.Application.Client.Requests;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -24,6 +26,8 @@ public partial class App : System.Windows.Application
         services.AddApplication();
         services.AddMediatR(config =>
             config.RegisterServicesFromAssembly(typeof(BaseRequestHandler).Assembly));
+        services.AddSingleton(
+            new ApplicationConfiguration(Directory.GetCurrentDirectory()));
 
         return services;
     }
