@@ -2,6 +2,7 @@
 // This software is licensed under the MIT license.
 // Please see the LICENSE file for more information.
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -13,16 +14,29 @@ namespace MedicalCardTracker.Client.ViewModels;
 
 public abstract class BaseViewModel : INotifyPropertyChanged
 {
+    private ApplicationConfiguration _configuration;
+
     protected BaseViewModel(IMapper mapper, IMediator mediator, ApplicationConfiguration configuration)
     {
         Mapper = mapper;
         Mediator = mediator;
-        Configuration = configuration;
+
+        _configuration = configuration;
     }
 
     protected IMapper Mapper { get; }
     protected IMediator Mediator { get; }
-    protected ApplicationConfiguration Configuration { get; }
+
+    public ApplicationConfiguration Configuration
+    {
+        get => _configuration;
+        set
+        {
+            if (Equals(value, _configuration)) return;
+            _configuration = value ?? throw new ArgumentNullException(nameof(value));
+            OnPropertyChanged();
+        }
+    }
 
     public event PropertyChangedEventHandler? PropertyChanged;
 

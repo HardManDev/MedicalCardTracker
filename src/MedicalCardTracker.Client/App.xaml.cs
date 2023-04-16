@@ -4,6 +4,7 @@
 
 using System;
 using System.IO;
+using System.Net.Http;
 using System.Reflection;
 using System.Windows;
 using MedicalCardTracker.Application;
@@ -26,15 +27,22 @@ public partial class App : System.Windows.Application
 
     private static IServiceCollection ConfigureServices(IServiceCollection? services = null)
     {
+        var configuration = new ApplicationConfiguration(Directory.GetCurrentDirectory());
+
         services ??= new ServiceCollection();
 
         services.AddApplication();
         services.AddMediatR(config =>
             config.RegisterServicesFromAssembly(typeof(BaseRequestHandler).Assembly));
-        services.AddSingleton(
-            new ApplicationConfiguration(Directory.GetCurrentDirectory()));
+        services.AddSingleton(new HttpClient
+        {
+            BaseAddress = new Uri(configuration.ApiBaseUrl)
+        });
+        services.AddSingleton(configuration);
         services.AddSingleton<TaskBarIconView>();
         services.AddSingleton<TaskBarIconViewModel>();
+        services.AddSingleton<CustomerView>();
+        services.AddSingleton<CustomerViewModel>();
 
         return services;
     }
@@ -49,8 +57,9 @@ public partial class App : System.Windows.Application
         Log.Information("Application has been started...");
 
 #if DEBUG
-        _serviceProvider.GetRequiredService<TaskBarIconView>()
-            .Show();
+        if (!configuration.IsRegistrar)
+            _serviceProvider.GetRequiredService<CustomerView>()
+                .Show();
 #endif
 
         base.OnStartup(e);
