@@ -1,0 +1,7 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <SolidColorBrush x:Key="AccentColor">#009fce</SolidColorBrush>
+    <SolidColorBrush x:Key="PendingStatusColor">#A5CEC600</SolidColorBrush>
+    <SolidColorBrush x:Key="FailedStatusColor">#B80000</SolidColorBrush>
+    <SolidColorBrush x:Key="SuccessStatusColor">#149500</SolidColorBrush>
+</ResourceDictionary>

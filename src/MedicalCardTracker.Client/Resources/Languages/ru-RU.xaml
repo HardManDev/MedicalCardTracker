@@ -1,0 +1,22 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary>
+            <system:String x:Key="CustomerViewTitle">Заказать карту пациента</system:String>
+            <system:String x:Key="PatientGroupBoxHeader">Пациент</system:String>
+            <system:String x:Key="PatientBirthDateLabel">Дата рождения</system:String>
+            <system:String x:Key="PatientFullNameLabel">Фамилия Имя Отчество</system:String>
+            <system:String x:Key="DescriptionLabel">Дополнительная информация</system:String>
+            <system:String x:Key="SendRequestButtonContent">Заказать карту в {0}</system:String>
+            <x:Array x:Key="RequestUrgency" Type="system:String">
+                <system:String>Не срочно</system:String>
+                <system:String>Срочно</system:String>
+            </x:Array>
+            <system:String x:Key="RequestSendingProgressNoneTip">Заполните необходимые поля и нажмите кнопку "Заказать карту"</system:String>
+            <system:String x:Key="RequestSendingProgressPendingTip">Идёт отправка заявки. Пожалуйста, подождите...</system:String>
+            <system:String x:Key="RequestSendingProgressSuccessTip">Заявка успешно отправлена! (Вы получите уведомление о статусе обработки)</system:String>
+            <system:String x:Key="RequestSendingProgressFailedTip">Ошибка отправки заявки, попробуйте позже!</system:String>
+        </ResourceDictionary>
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>
