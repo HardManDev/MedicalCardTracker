@@ -1,16 +1,18 @@
-﻿<Window x:Class="MedicalCardTracker.Client.Views.MainWindow"
+﻿<Window x:Class="MedicalCardTracker.Client.Views.TaskBarIcon"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:tb="http://www.hardcodet.net/taskbar"
+        xmlns:vm="clr-namespace:MedicalCardTracker.Client.ViewModels"
+        d:DataContext="{d:DesignInstance Type=vm:TaskBarIconViewModel}"
         mc:Ignorable="d">
     <Window.Resources>
         <ContextMenu x:Key="NotifyIconContextMenu">
             <!-- TODO: Move 'Header' to strings dictionary. -->
             <MenuItem x:Name="NotifyIconContextMenuExitMenuItem"
                       Header="Выход"
-                      Click="MenuItem_OnClick" />
+                      Command="{Binding ExitCommand}" />
         </ContextMenu>
     </Window.Resources>
     <Grid>
