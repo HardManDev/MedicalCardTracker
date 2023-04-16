@@ -6,19 +6,52 @@
         xmlns:tb="http://www.hardcodet.net/taskbar"
         xmlns:vm="clr-namespace:MedicalCardTracker.Client.ViewModels"
         d:DataContext="{d:DesignInstance Type=vm:TaskBarIconViewModel}"
-        mc:Ignorable="d">
+        mc:Ignorable="d"
+        Width="0" Height="0"
+        Visibility="Collapsed">
     <Window.Resources>
         <ContextMenu x:Key="NotifyIconContextMenu">
-            <!-- TODO: Move 'Header' to strings dictionary. -->
-            <MenuItem x:Name="NotifyIconContextMenuExitMenuItem"
-                      Header="Выход"
+            <MenuItem>
+                <MenuItem.Style>
+                    <Style TargetType="{x:Type MenuItem}">
+                        <Setter Property="Command" Value="{Binding OpenViewCommand}" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Configuration.IsRegistrar }"
+                                         Value="True">
+                                <Setter Property="Header" Value="{DynamicResource RegistrarViewTitle}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Configuration.IsRegistrar }"
+                                         Value="False">
+                                <Setter Property="Header" Value="{DynamicResource CustomerViewTitle}" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </MenuItem.Style>
+            </MenuItem>
+            <Separator />
+            <MenuItem x:Name="ExitMenuItem"
+                      Header="{DynamicResource ExitMenuItemHeader}"
                       Command="{Binding ExitCommand}" />
         </ContextMenu>
     </Window.Resources>
     <Grid>
-        <!-- TODO: Move 'ToolTipText' to strings dictionary. -->
         <tb:TaskbarIcon x:Name="NotifyIcon"
-                        ToolTipText="Заказать карту пациента"
-                        ContextMenu="{StaticResource NotifyIconContextMenu}" />
+                        LeftClickCommand="{Binding OpenViewCommand}"
+                        ContextMenu="{StaticResource NotifyIconContextMenu}">
+            <tb:TaskbarIcon.Style>
+                <Style TargetType="tb:TaskbarIcon">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Configuration.IsRegistrar }"
+                                     Value="True">
+                            <Setter Property="ToolTipText" Value="{DynamicResource RegistrarViewTitle}" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Configuration.IsRegistrar }"
+                                     Value="False">
+                            <Setter Property="ToolTipText" Value="{DynamicResource CustomerViewTitle}" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </tb:TaskbarIcon.Style>
+        </tb:TaskbarIcon>
     </Grid>
 </Window>

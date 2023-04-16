@@ -50,11 +50,15 @@ public partial class App : System.Windows.Application
     protected override void OnStartup(StartupEventArgs e)
     {
         var configuration = _serviceProvider.GetRequiredService<ApplicationConfiguration>();
+        var taskBarIconView = _serviceProvider.GetRequiredService<TaskBarIconView>();
 
         if (configuration.IsWriteLog)
             Log.Logger = Assembly.GetExecutingAssembly().GetLogger();
 
         Log.Information("Application has been started...");
+
+        taskBarIconView.Show();
+        taskBarIconView.Hide();
 
 #if DEBUG
         if (!configuration.IsRegistrar)

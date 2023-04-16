@@ -4,6 +4,7 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary>
             <system:String x:Key="CustomerViewTitle">Заказать карту пациента</system:String>
+            <system:String x:Key="RegistrarViewTitle">Заявки на получение карты пациента</system:String>
             <system:String x:Key="PatientGroupBoxHeader">Пациент</system:String>
             <system:String x:Key="PatientBirthDateLabel">Дата рождения</system:String>
             <system:String x:Key="PatientFullNameLabel">Фамилия Имя Отчество</system:String>
@@ -17,6 +18,7 @@
             <system:String x:Key="RequestSendingProgressPendingTip">Идёт отправка заявки. Пожалуйста, подождите...</system:String>
             <system:String x:Key="RequestSendingProgressSuccessTip">Заявка успешно отправлена! (Вы получите уведомление о статусе обработки)</system:String>
             <system:String x:Key="RequestSendingProgressFailedTip">Ошибка отправки заявки, попробуйте позже!</system:String>
+            <system:String x:Key="ExitMenuItemHeader">Выход</system:String>
         </ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>
