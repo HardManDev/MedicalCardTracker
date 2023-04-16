@@ -10,6 +10,7 @@ using MedicalCardTracker.Application;
 using MedicalCardTracker.Application.Client.Configuration;
 using MedicalCardTracker.Application.Client.Requests;
 using MedicalCardTracker.Application.Logging;
+using MedicalCardTracker.Client.Views;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 
@@ -31,6 +32,7 @@ public partial class App : System.Windows.Application
             config.RegisterServicesFromAssembly(typeof(BaseRequestHandler).Assembly));
         services.AddSingleton(
             new ApplicationConfiguration(Directory.GetCurrentDirectory()));
+        services.AddSingleton(new MainWindow());
 
         return services;
     }
