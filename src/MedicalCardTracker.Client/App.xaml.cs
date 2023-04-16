@@ -44,6 +44,8 @@ public partial class App : System.Windows.Application
         if (configuration.IsWriteLog)
             Log.Logger = Assembly.GetExecutingAssembly().GetLogger();
 
+        Log.Information("Application has been started...");
+
         base.OnStartup(e);
     }
 }

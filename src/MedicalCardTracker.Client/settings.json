@@ -1,0 +1,7 @@
+﻿{
+  "ApiBaseUrl": "http://localhost:5445/api",
+  "CustomerName": "",
+  "TargetAddress": "каб. ",
+  "IsRegistrar": false,
+  "IsWriteLog": true
+}
