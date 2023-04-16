@@ -13,6 +13,7 @@ using MedicalCardTracker.Application.Client.Requests;
 using MedicalCardTracker.Application.Logging;
 using MedicalCardTracker.Client.ViewModels;
 using MedicalCardTracker.Client.Views;
+using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 
@@ -39,6 +40,10 @@ public partial class App : System.Windows.Application
             BaseAddress = new Uri(configuration.ApiBaseUrl)
         });
         services.AddSingleton(configuration);
+        services.AddSingleton(
+            new HubConnectionBuilder()
+                .WithUrl($"{configuration.ApiBaseUrl}/notifications")
+                .Build());
         services.AddSingleton<TaskBarIconView>();
         services.AddSingleton<TaskBarIconViewModel>();
         services.AddSingleton<CustomerView>();
