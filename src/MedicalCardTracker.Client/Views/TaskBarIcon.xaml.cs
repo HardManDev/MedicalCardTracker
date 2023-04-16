@@ -4,20 +4,16 @@
 
 using System.Reflection;
 using System.Windows;
+using MedicalCardTracker.Client.ViewModels;
 
 namespace MedicalCardTracker.Client.Views;
 
-public partial class MainWindow : Window
+public partial class TaskBarIcon : Window
 {
-    public MainWindow()
+    public TaskBarIcon(TaskBarIconViewModel taskBarIconVm)
     {
+        DataContext = taskBarIconVm;
         InitializeComponent();
         NotifyIcon.Icon = System.Drawing.Icon.ExtractAssociatedIcon(Assembly.GetExecutingAssembly().Location);
-    }
-
-    // TODO: Move to command.
-    private void MenuItem_OnClick(object sender, RoutedEventArgs e)
-    {
-        System.Windows.Application.Current.Shutdown();
     }
 }

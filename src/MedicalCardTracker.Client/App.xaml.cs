@@ -10,6 +10,7 @@ using MedicalCardTracker.Application;
 using MedicalCardTracker.Application.Client.Configuration;
 using MedicalCardTracker.Application.Client.Requests;
 using MedicalCardTracker.Application.Logging;
+using MedicalCardTracker.Client.ViewModels;
 using MedicalCardTracker.Client.Views;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
@@ -32,7 +33,8 @@ public partial class App : System.Windows.Application
             config.RegisterServicesFromAssembly(typeof(BaseRequestHandler).Assembly));
         services.AddSingleton(
             new ApplicationConfiguration(Directory.GetCurrentDirectory()));
-        services.AddSingleton(new MainWindow());
+        services.AddSingleton<TaskBarIcon>();
+        services.AddSingleton<TaskBarIconViewModel>();
 
         return services;
     }
@@ -45,6 +47,11 @@ public partial class App : System.Windows.Application
             Log.Logger = Assembly.GetExecutingAssembly().GetLogger();
 
         Log.Information("Application has been started...");
+
+#if DEBUG
+        _serviceProvider.GetRequiredService<TaskBarIcon>()
+            .Show();
+#endif
 
         base.OnStartup(e);
     }
