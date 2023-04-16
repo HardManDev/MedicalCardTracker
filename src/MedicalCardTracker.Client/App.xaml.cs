@@ -11,9 +11,9 @@ using MedicalCardTracker.Application;
 using MedicalCardTracker.Application.Client.Configuration;
 using MedicalCardTracker.Application.Client.Requests;
 using MedicalCardTracker.Application.Logging;
+using MedicalCardTracker.Client.Utils;
 using MedicalCardTracker.Client.ViewModels;
 using MedicalCardTracker.Client.Views;
-using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 
@@ -40,17 +40,14 @@ public partial class App : System.Windows.Application
             BaseAddress = new Uri(configuration.ApiBaseUrl)
         });
         services.AddSingleton(configuration);
-        services.AddSingleton(
-            new HubConnectionBuilder()
-                .WithUrl($"{configuration.ApiBaseUrl}/notifications")
-                .Build());
+        services.AddSingleton<HubConnectionHelper>();
         services.AddSingleton<CustomerView>();
         services.AddSingleton<CustomerViewModel>();
 
         return services;
     }
 
-    protected override void OnStartup(StartupEventArgs e)
+    protected override async void OnStartup(StartupEventArgs e)
     {
         var configuration = _serviceProvider.GetRequiredService<ApplicationConfiguration>();
 
@@ -58,6 +55,9 @@ public partial class App : System.Windows.Application
             Log.Logger = Assembly.GetExecutingAssembly().GetLogger();
 
         Log.Information("Application has been started...");
+
+        await _serviceProvider.GetRequiredService<HubConnectionHelper>()
+            .ConnectToNotificationHub();
 
 #if DEBUG
         if (!configuration.IsRegistrar)
