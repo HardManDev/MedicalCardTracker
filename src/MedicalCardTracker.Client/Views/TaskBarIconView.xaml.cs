@@ -8,9 +8,9 @@ using MedicalCardTracker.Client.ViewModels;
 
 namespace MedicalCardTracker.Client.Views;
 
-public partial class TaskBarIcon : Window
+public partial class TaskBarIconView : Window
 {
-    public TaskBarIcon(TaskBarIconViewModel taskBarIconVm)
+    public TaskBarIconView(TaskBarIconViewModel taskBarIconVm)
     {
         DataContext = taskBarIconVm;
         InitializeComponent();

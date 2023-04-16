@@ -33,7 +33,7 @@ public partial class App : System.Windows.Application
             config.RegisterServicesFromAssembly(typeof(BaseRequestHandler).Assembly));
         services.AddSingleton(
             new ApplicationConfiguration(Directory.GetCurrentDirectory()));
-        services.AddSingleton<TaskBarIcon>();
+        services.AddSingleton<TaskBarIconView>();
         services.AddSingleton<TaskBarIconViewModel>();
 
         return services;
@@ -49,7 +49,7 @@ public partial class App : System.Windows.Application
         Log.Information("Application has been started...");
 
 #if DEBUG
-        _serviceProvider.GetRequiredService<TaskBarIcon>()
+        _serviceProvider.GetRequiredService<TaskBarIconView>()
             .Show();
 #endif
 
