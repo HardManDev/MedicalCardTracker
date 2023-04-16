@@ -23,7 +23,7 @@ public class ApplicationConfiguration
             .AddCommandLine(Environment.GetCommandLineArgs())
             .Build();
 
-        ApiBaseUrl = configuration.GetValue<string>(nameof(ApiBaseUrl)) ?? "http://localhost:5445/api";
+        ApiBaseUrl = configuration.GetValue<string>(nameof(ApiBaseUrl)) ?? "http://localhost:5445";
         CustomerName = configuration.GetValue<string>(nameof(CustomerName)) ?? string.Empty;
         TargetAddress = configuration.GetValue<string>(nameof(TargetAddress)) ?? "каб. ";
         IsRegistrar = configuration.GetValue<bool>(nameof(IsRegistrar));
