@@ -3,10 +3,13 @@
 // Please see the LICENSE file for more information.
 
 using System;
+using System.Globalization;
 using System.IO;
 using System.Net.Http;
 using System.Reflection;
+using System.Threading;
 using System.Windows;
+using System.Windows.Markup;
 using MedicalCardTracker.Application;
 using MedicalCardTracker.Application.Client.Configuration;
 using MedicalCardTracker.Application.Client.Requests;
@@ -24,8 +27,18 @@ public partial class App : System.Windows.Application
 {
     private readonly IServiceProvider _serviceProvider;
 
-    public App() =>
+    public App()
+    {
+        Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("ru-BY");
+        Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo("ru-BY");
+
+        FrameworkElement.LanguageProperty.OverrideMetadata(
+            typeof(FrameworkElement),
+            new FrameworkPropertyMetadata(
+                XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
+
         _serviceProvider = ConfigureServices().BuildServiceProvider();
+    }
 
     private static IServiceCollection ConfigureServices(IServiceCollection? services = null)
     {
@@ -46,6 +59,8 @@ public partial class App : System.Windows.Application
         services.AddSingleton<CustomerViewModel>();
         services.AddSingleton<HubConnectingView>();
         services.AddSingleton<HubConnectingViewModel>();
+        services.AddSingleton<CardRequestsView>();
+        services.AddSingleton<CardRequestsViewModel>();
 
         return services;
     }
@@ -54,6 +69,7 @@ public partial class App : System.Windows.Application
     {
         var configuration = _serviceProvider.GetRequiredService<ApplicationConfiguration>();
         var customerView = _serviceProvider.GetRequiredService<CustomerView>();
+        var cardRequestsView = _serviceProvider.GetRequiredService<CardRequestsView>();
         var hubConnectionHelper = _serviceProvider.GetRequiredService<HubConnectionHelper>();
         var hubConnectingView = _serviceProvider.GetRequiredService<HubConnectingView>();
 
@@ -71,18 +87,18 @@ public partial class App : System.Windows.Application
                 switch (hubConnectionHelper.HubConnectionStatus)
                 {
                     case HubConnectionStatus.Reconnecting:
-                        if (customerView.IsVisible)
+                        if (customerView.IsVisible || cardRequestsView.IsVisible)
                             hubConnectingView.Show();
                         break;
                     case HubConnectionStatus.Disconnected:
-                        if (customerView.IsVisible)
+                        if (customerView.IsVisible || cardRequestsView.IsVisible)
                             hubConnectingView.Show();
                         break;
                     case HubConnectionStatus.Failed:
                         hubConnectingView.Hide();
                         break;
                     case HubConnectionStatus.Connecting:
-                        if (customerView.IsVisible)
+                        if (customerView.IsVisible || cardRequestsView.IsVisible)
                             hubConnectingView.Show();
                         break;
                     case HubConnectionStatus.Connected:
@@ -97,8 +113,9 @@ public partial class App : System.Windows.Application
 
 #if DEBUG
         if (!configuration.IsRegistrar)
-            _serviceProvider.GetRequiredService<CustomerView>()
-                .Show();
+            customerView.Show();
+        else
+            cardRequestsView.Show();
 #endif
 
         base.OnStartup(e);

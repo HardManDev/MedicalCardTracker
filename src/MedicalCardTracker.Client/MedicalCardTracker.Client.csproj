@@ -20,6 +20,7 @@
     <RepositoryUrl>https://github.com/HardManDev/MedicalCardTracker.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <NeutralLanguage>ru-BY</NeutralLanguage>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">

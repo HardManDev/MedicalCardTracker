@@ -5,6 +5,7 @@
         <ResourceDictionary>
             <system:String x:Key="CustomerViewTitle">Заказать карту пациента</system:String>
             <system:String x:Key="RegistrarViewTitle">Заявки на получение карты пациента</system:String>
+            <system:String x:Key="CardRequestsViewTitle">Мои заявки на получение карты пациента</system:String>
 
             <system:String x:Key="PatientGroupBoxHeader">Пациент</system:String>
             <system:String x:Key="PatientBirthDateLabel">Дата рождения</system:String>
@@ -26,8 +27,12 @@
             <system:String x:Key="HubConnectionStatusDisconnected">Сервер принудительно разорвал соединение!</system:String>
             <system:String x:Key="HubConnectionStatusReconnecting">Переподключение к серверу...</system:String>
             <system:String x:Key="HubConnectionStatusFailed">Не удалось установить соединение с сервером!</system:String>
-            
+
             <system:String x:Key="NotificationHubConnectionError">Не удалось подключиться к серверу. Попробуйте запустить приложение позже.</system:String>
+
+            <system:String x:Key="OpenCardRequestsViewButton">Просмотреть статус заявок</system:String>
+
+            <system:String x:Key="PageStatusString">Страница {0} из {1} ({2} элементов на страницу / {3} всего элементов)</system:String>
         </ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>
