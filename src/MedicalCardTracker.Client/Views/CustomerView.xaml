@@ -14,6 +14,17 @@
         WindowStartupLocation="CenterScreen"
         FontSize="18"
         Closing="CustomerView_OnClosing">
+    <Window.Style>
+        <Style TargetType="{x:Type Window}">
+            <Setter Property="IsEnabled" Value="False" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding HubConnectionHelper.HubConnectionStatus}"
+                             Value="{x:Static enum:HubConnectionStatus.Connected}">
+                    <Setter Property="IsEnabled" Value="True" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Style>
     <StackPanel Orientation="Vertical">
         <Grid Margin="8"
               IsEnabled="{Binding IsWindowEnable}">

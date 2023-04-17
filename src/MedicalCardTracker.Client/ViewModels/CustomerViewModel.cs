@@ -19,16 +19,33 @@ namespace MedicalCardTracker.Client.ViewModels;
 public class CustomerViewModel : BaseViewModel
 {
     private string _description = string.Empty;
+    private HubConnectionHelper _hubConnectionHelper;
     private bool _isWindowEnable = true;
     private string _patientBirthDate = string.Empty;
     private string _patientFullName = string.Empty;
     private int _priority = (int)CardRequestPriority.Urgently;
     private RequestSendingProgress _requestSendingProgress = RequestSendingProgress.None;
 
-    public CustomerViewModel(IMapper mapper, IMediator mediator, ApplicationConfiguration configuration)
+    public CustomerViewModel(IMapper mapper,
+        IMediator mediator,
+        ApplicationConfiguration configuration,
+        HubConnectionHelper hubConnectionHelper)
         : base(mapper, mediator, configuration)
     {
+        _hubConnectionHelper = hubConnectionHelper;
+
         SendRequestCommand = new RelayCommand(SendRequestCommand_Execute, SendRequestCommand_CanExecute);
+    }
+
+    public HubConnectionHelper HubConnectionHelper
+    {
+        get => _hubConnectionHelper;
+        set
+        {
+            if (Equals(value, _hubConnectionHelper)) return;
+            _hubConnectionHelper = value ?? throw new ArgumentNullException(nameof(value));
+            OnPropertyChanged();
+        }
     }
 
     public string PatientFullName

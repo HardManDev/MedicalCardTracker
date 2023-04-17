@@ -11,6 +11,7 @@ using MedicalCardTracker.Application;
 using MedicalCardTracker.Application.Client.Configuration;
 using MedicalCardTracker.Application.Client.Requests;
 using MedicalCardTracker.Application.Logging;
+using MedicalCardTracker.Client.Models.Enums;
 using MedicalCardTracker.Client.Utils;
 using MedicalCardTracker.Client.ViewModels;
 using MedicalCardTracker.Client.Views;
@@ -43,6 +44,8 @@ public partial class App : System.Windows.Application
         services.AddSingleton<HubConnectionHelper>();
         services.AddSingleton<CustomerView>();
         services.AddSingleton<CustomerViewModel>();
+        services.AddSingleton<HubConnectingView>();
+        services.AddSingleton<HubConnectingViewModel>();
 
         return services;
     }
@@ -50,14 +53,43 @@ public partial class App : System.Windows.Application
     protected override async void OnStartup(StartupEventArgs e)
     {
         var configuration = _serviceProvider.GetRequiredService<ApplicationConfiguration>();
+        var hubConnectionHelper = _serviceProvider.GetRequiredService<HubConnectionHelper>();
+        var hubConnectingView = _serviceProvider.GetRequiredService<HubConnectingView>();
 
         if (configuration.IsWriteLog)
             Log.Logger = Assembly.GetExecutingAssembly().GetLogger();
 
         Log.Information("Application has been started...");
 
-        await _serviceProvider.GetRequiredService<HubConnectionHelper>()
-            .ConnectToNotificationHub();
+
+        hubConnectingView.Show();
+
+        hubConnectionHelper.PropertyChanged += (sender, args) =>
+        {
+            if (args.PropertyName == nameof(hubConnectionHelper.HubConnectionStatus))
+                switch (hubConnectionHelper.HubConnectionStatus)
+                {
+                    case HubConnectionStatus.Reconnecting:
+                        hubConnectingView.Show();
+                        break;
+                    case HubConnectionStatus.Disconnected:
+                        hubConnectingView.Show();
+                        break;
+                    case HubConnectionStatus.Failed:
+                        hubConnectingView.Hide();
+                        break;
+                    case HubConnectionStatus.Connecting:
+                        hubConnectingView.Show();
+                        break;
+                    case HubConnectionStatus.Connected:
+                        hubConnectingView.Hide();
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+        };
+
+        await hubConnectionHelper.ConnectToNotificationHub();
 
 #if DEBUG
         if (!configuration.IsRegistrar)

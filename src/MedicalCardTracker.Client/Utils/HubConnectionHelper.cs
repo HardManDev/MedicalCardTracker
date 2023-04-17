@@ -29,9 +29,12 @@ public class HubConnectionHelper : INotifyPropertyChanged
 
         NotificationHubConnection.Closed += async e =>
         {
-            HubConnectionStatus = HubConnectionStatus.Disconnected;
+            await System.Windows.Application.Current.Dispatcher.Invoke(async () =>
+            {
+                HubConnectionStatus = HubConnectionStatus.Disconnected;
 
-            await ReconnectToNotificationHub();
+                await ReconnectToNotificationHub();
+            });
         };
     }
 
