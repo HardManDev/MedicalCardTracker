@@ -90,7 +90,7 @@
                           VerticalContentAlignment="Center"
                           FontSize="22"
                           SelectedIndex="{Binding Priority, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                          ItemsSource="{StaticResource RequestUrgency}" />
+                          ItemsSource="{StaticResource RequestPriority}" />
                 <Button Grid.Column="1"
                         Margin="4"
                         FontSize="22"

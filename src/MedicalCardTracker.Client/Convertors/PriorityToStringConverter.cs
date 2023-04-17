@@ -17,8 +17,10 @@ public class PriorityToStringConverter : IValueConverter
 
         return urgency switch
         {
-            CardRequestPriority.Urgently => "Срочно",
-            CardRequestPriority.UnUrgently => "Не срочно",
+            CardRequestPriority.Urgently => ((string[])System.Windows.Application.Current.Resources["RequestPriority"])
+                [1],
+            CardRequestPriority.UnUrgently =>
+                ((string[])System.Windows.Application.Current.Resources["RequestPriority"])[0],
             _ => string.Empty
         };
     }

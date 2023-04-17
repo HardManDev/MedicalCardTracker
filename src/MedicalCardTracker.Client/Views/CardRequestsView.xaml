@@ -13,7 +13,6 @@
 
         mc:Ignorable="d"
         MinWidth="800" MinHeight="600"
-        WindowState="Maximized"
         WindowStartupLocation="CenterScreen"
         FontSize="16"
         Closing="CardRequestsView_OnClosing">
@@ -120,7 +119,7 @@
                                                Content="{Binding CreatedAt}" />
                                         <Label IsEnabled="False"
                                                Content="{Binding CustomerName}"
-                                               ContentStringFormat="|  Заказчик: {0}" />
+                                               ContentStringFormat="{DynamicResource CustomerLabel}" />
                                     </StackPanel>
                                     <Label Grid.Column="2" IsEnabled="False"
                                            FontSize="12"
@@ -150,7 +149,7 @@
                                     <StackPanel Grid.Column="0"
                                                 Orientation="Vertical">
                                         <Label IsEnabled="False"
-                                               Content="Фамилия Имя Отчество:" />
+                                               Content="{DynamicResource PatientFullNameLabel}" />
                                         <Label Margin="0 -12 0 0"
                                                FontSize="22"
                                                FontWeight="Bold"
@@ -160,7 +159,7 @@
                                                 Orientation="Vertical"
                                                 Margin="8 0">
                                         <Label IsEnabled="False"
-                                               Content="Дата рождения:" />
+                                               Content="{DynamicResource PatientBirthDateLabel}" />
                                         <Label Margin="0 -12 0 0"
                                                FontSize="22"
                                                FontWeight="Bold"
@@ -170,7 +169,7 @@
                                                 Orientation="Vertical"
                                                 Margin="8 0">
                                         <Label IsEnabled="False"
-                                               Content="Место назначения:" />
+                                               Content="{DynamicResource TargetAddressLabel}" />
                                         <Label Margin="0 -12 0 0"
                                                FontSize="22"
                                                FontWeight="Bold"
@@ -195,7 +194,7 @@
                                             </Style>
                                         </StackPanel.Style>
                                         <Label IsEnabled="False"
-                                               Content="Дополнительная информация:" />
+                                               Content="{DynamicResource DescriptionLabel}" />
                                         <TextBlock Margin="4 0 4 0"
                                                    TextWrapping="Wrap"
                                                    Text="{Binding Description}" />
@@ -234,7 +233,7 @@
                                                 Background="{DynamicResource SuccessStatusColor}"
                                                 Command="{Binding DataContext.MarkCardRequestAsCompletedCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
                                                 CommandParameter="{Binding Id}"
-                                                Content="Карта доставлена" />
+                                                Content="{DynamicResource CardRequestCompletedStatusLabel}" />
                                         <Button Height="48"
                                                 Padding="16 8 16 8"
                                                 Margin="4 0 0 0"
@@ -243,7 +242,7 @@
                                                 Background="{DynamicResource FailedStatusColor}"
                                                 Command="{Binding DataContext.MarkCardRequestAsNotCompletedCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
                                                 CommandParameter="{Binding Id}"
-                                                Content="Карта не найдена" />
+                                                Content="{DynamicResource CardRequestNotCompletedStatusLabel}" />
                                     </StackPanel>
                                     <StackPanel Grid.Column="1"
                                                 Orientation="Horizontal"
@@ -273,7 +272,7 @@
                                                 Background="{DynamicResource FailedStatusColor}"
                                                 Command="{Binding DataContext.MarkCardRequestAsCanceledCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
                                                 CommandParameter="{Binding Id}"
-                                                Content="Отменить заявку" />
+                                                Content="{DynamicResource CancelCardRequestButton}" />
                                     </StackPanel>
                                 </Grid>
                                 <Grid Grid.Row="3"
@@ -286,20 +285,22 @@
                                                 <Style.Triggers>
                                                     <DataTrigger Binding="{Binding Status}"
                                                                  Value="{x:Static domainEnum:CardRequestStatus.Completed}">
-                                                        <Setter Property="Content" Value="Карта отправлена" />
+                                                        <Setter Property="Content"
+                                                                Value="{DynamicResource CardRequestCompletedStatusLabel}" />
                                                         <Setter Property="Background"
                                                                 Value="{DynamicResource SuccessStatusColor}" />
                                                     </DataTrigger>
                                                     <DataTrigger Binding="{Binding Status}"
                                                                  Value="{x:Static domainEnum:CardRequestStatus.NotCompleted}">
-                                                        <Setter Property="Content" Value="Карта не найдена" />
+                                                        <Setter Property="Content"
+                                                                Value="{DynamicResource CardRequestNotCompletedStatusLabel}" />
                                                         <Setter Property="Background"
                                                                 Value="{DynamicResource FailedStatusColor}" />
                                                     </DataTrigger>
                                                     <DataTrigger Binding="{Binding Status}"
                                                                  Value="{x:Static domainEnum:CardRequestStatus.Canceled}">
                                                         <Setter Property="Content"
-                                                                Value="Запрос на получение карты отменён" />
+                                                                Value="{DynamicResource CardRequestCanceledStatusLabel}" />
                                                         <Setter Property="Background"
                                                                 Value="{DynamicResource PendingStatusColor}" />
                                                     </DataTrigger>
@@ -311,7 +312,8 @@
                                                                 Binding="{Binding DataContext.Configuration.IsRegistrar, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
                                                                 Value="False" />
                                                         </MultiDataTrigger.Conditions>
-                                                        <Setter Property="Content" Value="В обработке..." />
+                                                        <Setter Property="Content"
+                                                                Value="{DynamicResource CardRequestInProgressStatusLabel}" />
                                                         <Setter Property="Background"
                                                                 Value="{DynamicResource PendingStatusColor}" />
                                                     </MultiDataTrigger>
@@ -329,18 +331,16 @@
         <Grid Grid.Row="1"
               Background="{DynamicResource AccentColor}">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="1"
+            <Button Grid.Column="0"
                     Style="{StaticResource PaginationButton}"
                     FontSize="18"
-                    Content="Назад"
+                    Content="{DynamicResource PrevButton}"
                     Command="{Binding PrevPageCommand}" />
-            <TextBlock Grid.Column="2"
+            <TextBlock Grid.Column="1"
                        Margin="4"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
@@ -350,7 +350,7 @@
                     <Style TargetType="{x:Type TextBlock}">
                         <Setter Property="Text">
                             <Setter.Value>
-                                <MultiBinding StringFormat="Cтраница {0} из {1} ({2} элементов на страницу)">
+                                <MultiBinding StringFormat="{StaticResource PageStatusStringForCustomer}">
                                     <Binding Path="PageIndex" Mode="OneWay" />
                                     <Binding Path="PageCount" Mode="OneWay" />
                                     <Binding Path="ItemsPerPage" Mode="OneWay" />
@@ -362,8 +362,7 @@
                                          Value="True">
                                 <Setter Property="Text">
                                     <Setter.Value>
-                                        <MultiBinding
-                                            StringFormat="Cтраница {0} из {1} (Элементов на страницу: {2} / Всего элементов: {3} )">
+                                        <MultiBinding StringFormat="{StaticResource PageStatusString}">
                                             <Binding Path="PageIndex" Mode="OneWay" />
                                             <Binding Path="PageCount" Mode="OneWay" />
                                             <Binding Path="ItemsPerPage" Mode="OneWay" />
@@ -376,10 +375,10 @@
                     </Style>
                 </TextBlock.Style>
             </TextBlock>
-            <Button Grid.Column="3"
+            <Button Grid.Column="2"
                     Style="{StaticResource PaginationButton}"
                     FontSize="18"
-                    Content="Вперед"
+                    Content="{DynamicResource NextButton}"
                     Command="{Binding NextPageCommand}" />
         </Grid>
     </Grid>

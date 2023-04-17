@@ -28,7 +28,7 @@ public class CardRequestsViewModel : BaseViewModel
 {
     private ObservableCollection<CardRequestVm> _cardRequests = new();
     private HubConnectionHelper _hubConnectionHelper;
-    private int _itemsPerPage = 100;
+    private int _itemsPerPage = 3;
     private int _itemsTotalCount;
     private int _pageCount;
     private int _pageIndex = 1;
@@ -176,10 +176,10 @@ public class CardRequestsViewModel : BaseViewModel
         }
     }
 
-    private async void OnCreateCardRequestCommandHandler(string user, CardRequestVm payload)
+    private void OnCreateCardRequestCommandHandler(string user, CardRequestVm payload)
     {
-        await System.Windows.Application.Current.Dispatcher
-            .Invoke(async () =>
+        System.Windows.Application.Current.Dispatcher
+            .Invoke(() =>
             {
                 ItemsTotalCount += 1;
                 PageCount = (int)Math.Ceiling(ItemsTotalCount / (decimal)ItemsPerPage);
