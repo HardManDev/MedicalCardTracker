@@ -11,6 +11,7 @@ using MedicalCardTracker.Application.Client.Configuration;
 using MedicalCardTracker.Application.Requests.Commands.CardRequests.CreateCardRequest;
 using MedicalCardTracker.Client.Models.Enums;
 using MedicalCardTracker.Client.Utils;
+using MedicalCardTracker.Client.Views;
 using MedicalCardTracker.Domain.Enums;
 using Serilog;
 
@@ -18,6 +19,7 @@ namespace MedicalCardTracker.Client.ViewModels;
 
 public class CustomerViewModel : BaseViewModel
 {
+    private readonly CardRequestsView _cardRequestsView;
     private string _description = string.Empty;
     private HubConnectionHelper _hubConnectionHelper;
     private bool _isWindowEnable = true;
@@ -29,12 +31,16 @@ public class CustomerViewModel : BaseViewModel
     public CustomerViewModel(IMapper mapper,
         IMediator mediator,
         ApplicationConfiguration configuration,
+        CardRequestsView cardRequestsView,
         HubConnectionHelper hubConnectionHelper)
         : base(mapper, mediator, configuration)
     {
+        _cardRequestsView = cardRequestsView;
         _hubConnectionHelper = hubConnectionHelper;
 
         SendRequestCommand = new RelayCommand(SendRequestCommand_Execute, SendRequestCommand_CanExecute);
+        OpenCardRequestsViewCommand = new RelayCommand(OpenCardRequestsViewCommand_Execute,
+            o => true);
     }
 
     public HubConnectionHelper HubConnectionHelper
@@ -115,6 +121,7 @@ public class CustomerViewModel : BaseViewModel
     }
 
     public RelayCommand SendRequestCommand { get; }
+    public RelayCommand OpenCardRequestsViewCommand { get; }
 
     private bool SendRequestCommand_CanExecute(object obj)
     {
@@ -166,5 +173,10 @@ public class CustomerViewModel : BaseViewModel
             await Task.Delay(5000);
             RequestSendingProgress = RequestSendingProgress.None;
         }
+    }
+
+    private void OpenCardRequestsViewCommand_Execute(object obj)
+    {
+        _cardRequestsView.ShowDialog();
     }
 }

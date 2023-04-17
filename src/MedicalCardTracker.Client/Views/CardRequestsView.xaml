@@ -1,0 +1,385 @@
+﻿<Window x:Class="MedicalCardTracker.Client.Views.CardRequestsView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:vm="clr-namespace:MedicalCardTracker.Client.ViewModels"
+        xmlns:enum="clr-namespace:MedicalCardTracker.Client.Models.Enums"
+        xmlns:domainEnum="clr-namespace:MedicalCardTracker.Domain.Enums;assembly=MedicalCardTracker.Domain"
+        xmlns:entityVm="clr-namespace:MedicalCardTracker.Application.Models.ViewModels;assembly=MedicalCardTracker.Application"
+        xmlns:convertors="clr-namespace:MedicalCardTracker.Client.Convertors"
+
+        d:DataContext="{d:DesignInstance Type=vm:CardRequestsViewModel}"
+
+        mc:Ignorable="d"
+        MinWidth="800" MinHeight="600"
+        WindowStartupLocation="CenterScreen"
+        FontSize="16"
+        Closing="CardRequestsView_OnClosing">
+    <Window.Style>
+        <Style TargetType="{x:Type Window}">
+            <Setter Property="Title" Value="{DynamicResource CardRequestsViewTitle}" />
+            <Setter Property="IsEnabled" Value="False" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding HubConnectionHelper.HubConnectionStatus}"
+                             Value="{x:Static enum:HubConnectionStatus.Connected}">
+                    <Setter Property="IsEnabled" Value="True" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Configuration.IsRegistrar}"
+                             Value="True">
+                    <Setter Property="Title" Value="{DynamicResource RegistrarViewTitle}" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Style>
+    <Window.Resources>
+        <convertors:PriorityToStringConverter x:Key="PriorityToStringConverter" />
+
+        <Style x:Key="PaginationButton"
+               TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Padding" Value="8 0 8 0" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="LightGray" />
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Visibility" Value="Hidden" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <ItemsControl Margin="0 16 0 16"
+                          ItemsSource="{Binding CardRequests, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type entityVm:CardRequestVm}">
+                        <Border BorderThickness="1,1,1,1"
+                                BorderBrush="Black">
+                            <Border.Style>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="IsEnabled" Value="False" />
+                                    <Setter Property="Opacity" Value="0.5" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Status}"
+                                                     Value="{x:Static domainEnum:CardRequestStatus.Created}">
+                                            <Setter Property="IsEnabled" Value="True" />
+                                            <Setter Property="Opacity" Value="1" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <Grid Margin="8 0 ">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0"
+                                                Orientation="Horizontal">
+                                        <Label Width="128"
+                                               Margin="-8 0 0 0"
+                                               Foreground="White"
+                                               FontSize="18"
+                                               VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
+                                               Content="{Binding Priority, Converter={StaticResource PriorityToStringConverter}}">
+                                            <Label.Style>
+                                                <Style TargetType="{x:Type Label}">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Priority}"
+                                                                     Value="{x:Static domainEnum:CardRequestPriority.Urgently}">
+                                                            <Setter Property="Background"
+                                                                    Value="{DynamicResource FailedStatusColor}" />
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Priority}"
+                                                                     Value="{x:Static domainEnum:CardRequestPriority.UnUrgently}">
+                                                            <Setter Property="Background"
+                                                                    Value="{DynamicResource PendingStatusColor}" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Label.Style>
+                                        </Label>
+                                        <Label IsEnabled="False"
+                                               Content="{Binding CreatedAt}" />
+                                        <Label IsEnabled="False"
+                                               Content="{Binding CustomerName}"
+                                               ContentStringFormat="{DynamicResource CustomerLabel}" />
+                                    </StackPanel>
+                                    <Label Grid.Column="2" IsEnabled="False"
+                                           FontSize="12"
+                                           VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                           Content="{Binding Id}"
+                                           ContentStringFormat="ID: {0}">
+                                        <Label.Style>
+                                            <Style TargetType="{x:Type Label}">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                                <Style.Triggers>
+                                                    <DataTrigger
+                                                        Binding="{Binding DataContext.Configuration.IsRegistrar, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                                                        Value="True">
+                                                        <Setter Property="Visibility" Value="Visible" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Label.Style>
+                                    </Label>
+                                </Grid>
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0"
+                                                Orientation="Vertical">
+                                        <Label IsEnabled="False"
+                                               Content="{DynamicResource PatientFullNameLabel}" />
+                                        <Label Margin="0 -12 0 0"
+                                               FontSize="22"
+                                               FontWeight="Bold"
+                                               Content="{Binding PatientFullName}" />
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1"
+                                                Orientation="Vertical"
+                                                Margin="8 0">
+                                        <Label IsEnabled="False"
+                                               Content="{DynamicResource PatientBirthDateLabel}" />
+                                        <Label Margin="0 -12 0 0"
+                                               FontSize="22"
+                                               FontWeight="Bold"
+                                               Content="{Binding PatientBirthDate}" />
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="2"
+                                                Orientation="Vertical"
+                                                Margin="8 0">
+                                        <Label IsEnabled="False"
+                                               Content="{DynamicResource TargetAddressLabel}" />
+                                        <Label Margin="0 -12 0 0"
+                                               FontSize="22"
+                                               FontWeight="Bold"
+                                               Content="{Binding TargetAddress}" />
+                                    </StackPanel>
+                                </Grid>
+                                <Grid Grid.Row="2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0">
+                                        <StackPanel.Style>
+                                            <Style TargetType="{x:Type StackPanel}">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Description}"
+                                                                 Value="">
+                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </StackPanel.Style>
+                                        <Label IsEnabled="False"
+                                               Content="{DynamicResource DescriptionLabel}" />
+                                        <TextBlock Margin="4 0 4 0"
+                                                   TextWrapping="Wrap"
+                                                   Text="{Binding Description}" />
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1"
+                                                Orientation="Horizontal"
+                                                VerticalAlignment="Bottom">
+                                        <StackPanel.Style>
+                                            <Style TargetType="{x:Type StackPanel}">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Status}"
+                                                                 Value="{x:Static domainEnum:CardRequestStatus.Created}">
+                                                        <Setter Property="Visibility" Value="Visible" />
+                                                    </DataTrigger>
+                                                    <MultiDataTrigger>
+                                                        <MultiDataTrigger.Conditions>
+                                                            <Condition Binding="{Binding Status}"
+                                                                       Value="{x:Static domainEnum:CardRequestStatus.Created}" />
+                                                            <Condition
+                                                                Binding="{Binding DataContext.Configuration.IsRegistrar, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                                                                Value="False" />
+                                                        </MultiDataTrigger.Conditions>
+                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                        <Setter Property="Background"
+                                                                Value="{DynamicResource PendingStatusColor}" />
+                                                    </MultiDataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </StackPanel.Style>
+                                        <Button Height="48"
+                                                Padding="16 8 16 8"
+                                                Margin="8 0 4 0"
+                                                Foreground="White"
+                                                FontSize="18"
+                                                Background="{DynamicResource SuccessStatusColor}"
+                                                Command="{Binding DataContext.MarkCardRequestAsCompletedCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                                                CommandParameter="{Binding Id}"
+                                                Content="{DynamicResource CardRequestCompletedStatusLabel}" />
+                                        <Button Height="48"
+                                                Padding="16 8 16 8"
+                                                Margin="4 0 0 0"
+                                                Foreground="White"
+                                                FontSize="18"
+                                                Background="{DynamicResource FailedStatusColor}"
+                                                Command="{Binding DataContext.MarkCardRequestAsNotCompletedCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                                                CommandParameter="{Binding Id}"
+                                                Content="{DynamicResource CardRequestNotCompletedStatusLabel}" />
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1"
+                                                Orientation="Horizontal"
+                                                VerticalAlignment="Bottom">
+                                        <StackPanel.Style>
+                                            <Style TargetType="{x:Type StackPanel}">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                                <Style.Triggers>
+                                                    <MultiDataTrigger>
+                                                        <MultiDataTrigger.Conditions>
+                                                            <Condition Binding="{Binding Status}"
+                                                                       Value="{x:Static domainEnum:CardRequestStatus.Created}" />
+                                                            <Condition
+                                                                Binding="{Binding DataContext.Configuration.IsRegistrar, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                                                                Value="False" />
+                                                        </MultiDataTrigger.Conditions>
+                                                        <Setter Property="Visibility" Value="Visible" />
+                                                    </MultiDataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </StackPanel.Style>
+                                        <Button Height="48"
+                                                Padding="16 8 16 8"
+                                                Margin="4 0 0 0"
+                                                Foreground="White"
+                                                FontSize="18"
+                                                Background="{DynamicResource FailedStatusColor}"
+                                                Command="{Binding DataContext.MarkCardRequestAsCanceledCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                                                CommandParameter="{Binding Id}"
+                                                Content="{DynamicResource CancelCardRequestButton}" />
+                                    </StackPanel>
+                                </Grid>
+                                <Grid Grid.Row="3"
+                                      Margin="-8 4 -8 0">
+                                    <Label Foreground="White"
+                                           FontSize="16"
+                                           HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                                        <Label.Style>
+                                            <Style TargetType="{x:Type Label}">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Status}"
+                                                                 Value="{x:Static domainEnum:CardRequestStatus.Completed}">
+                                                        <Setter Property="Content"
+                                                                Value="{DynamicResource CardRequestCompletedStatusLabel}" />
+                                                        <Setter Property="Background"
+                                                                Value="{DynamicResource SuccessStatusColor}" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Status}"
+                                                                 Value="{x:Static domainEnum:CardRequestStatus.NotCompleted}">
+                                                        <Setter Property="Content"
+                                                                Value="{DynamicResource CardRequestNotCompletedStatusLabel}" />
+                                                        <Setter Property="Background"
+                                                                Value="{DynamicResource FailedStatusColor}" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Status}"
+                                                                 Value="{x:Static domainEnum:CardRequestStatus.Canceled}">
+                                                        <Setter Property="Content"
+                                                                Value="{DynamicResource CardRequestCanceledStatusLabel}" />
+                                                        <Setter Property="Background"
+                                                                Value="{DynamicResource PendingStatusColor}" />
+                                                    </DataTrigger>
+                                                    <MultiDataTrigger>
+                                                        <MultiDataTrigger.Conditions>
+                                                            <Condition Binding="{Binding Status}"
+                                                                       Value="{x:Static domainEnum:CardRequestStatus.Created}" />
+                                                            <Condition
+                                                                Binding="{Binding DataContext.Configuration.IsRegistrar, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                                                                Value="False" />
+                                                        </MultiDataTrigger.Conditions>
+                                                        <Setter Property="Content"
+                                                                Value="{DynamicResource CardRequestInProgressStatusLabel}" />
+                                                        <Setter Property="Background"
+                                                                Value="{DynamicResource PendingStatusColor}" />
+                                                    </MultiDataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Label.Style>
+                                    </Label>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+        <Grid Grid.Row="1"
+              Background="{DynamicResource AccentColor}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0"
+                    Style="{StaticResource PaginationButton}"
+                    FontSize="18"
+                    Content="{DynamicResource PrevButton}"
+                    Command="{Binding PrevPageCommand}" />
+            <TextBlock Grid.Column="1"
+                       Margin="4"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       Foreground="White"
+                       FontSize="18">
+                <TextBlock.Style>
+                    <Style TargetType="{x:Type TextBlock}">
+                        <Setter Property="Text">
+                            <Setter.Value>
+                                <MultiBinding StringFormat="{StaticResource PageStatusStringForCustomer}">
+                                    <Binding Path="PageIndex" Mode="OneWay" />
+                                    <Binding Path="PageCount" Mode="OneWay" />
+                                    <Binding Path="ItemsPerPage" Mode="OneWay" />
+                                </MultiBinding>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Configuration.IsRegistrar}"
+                                         Value="True">
+                                <Setter Property="Text">
+                                    <Setter.Value>
+                                        <MultiBinding StringFormat="{StaticResource PageStatusString}">
+                                            <Binding Path="PageIndex" Mode="OneWay" />
+                                            <Binding Path="PageCount" Mode="OneWay" />
+                                            <Binding Path="ItemsPerPage" Mode="OneWay" />
+                                            <Binding Path="ItemsTotalCount" Mode="OneWay" />
+                                        </MultiBinding>
+                                    </Setter.Value>
+                                </Setter>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+            <Button Grid.Column="2"
+                    Style="{StaticResource PaginationButton}"
+                    FontSize="18"
+                    Content="{DynamicResource NextButton}"
+                    Command="{Binding NextPageCommand}" />
+        </Grid>
+    </Grid>
+</Window>

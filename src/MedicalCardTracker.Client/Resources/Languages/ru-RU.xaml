@@ -5,29 +5,46 @@
         <ResourceDictionary>
             <system:String x:Key="CustomerViewTitle">Заказать карту пациента</system:String>
             <system:String x:Key="RegistrarViewTitle">Заявки на получение карты пациента</system:String>
+            <system:String x:Key="CardRequestsViewTitle">Мои заявки на получение карты пациента</system:String>
 
+            <!-- CustomerView -->
             <system:String x:Key="PatientGroupBoxHeader">Пациент</system:String>
             <system:String x:Key="PatientBirthDateLabel">Дата рождения</system:String>
             <system:String x:Key="PatientFullNameLabel">Фамилия Имя Отчество</system:String>
             <system:String x:Key="DescriptionLabel">Дополнительная информация</system:String>
             <system:String x:Key="SendRequestButtonContent">Заказать карту в {0}</system:String>
-            <x:Array x:Key="RequestUrgency" Type="system:String">
+            <x:Array x:Key="RequestPriority" Type="system:String">
                 <system:String>Не срочно</system:String>
                 <system:String>Срочно</system:String>
             </x:Array>
+            <system:String x:Key="OpenCardRequestsViewButton">Просмотреть статус заявок</system:String>
 
             <system:String x:Key="RequestSendingProgressNoneTip">Заполните необходимые поля и нажмите кнопку "Заказать карту"</system:String>
             <system:String x:Key="RequestSendingProgressPendingTip">Идёт отправка заявки. Пожалуйста, подождите...</system:String>
             <system:String x:Key="RequestSendingProgressSuccessTip">Заявка успешно отправлена! (Вы получите уведомление о статусе обработки)</system:String>
             <system:String x:Key="RequestSendingProgressFailedTip">Ошибка отправки заявки, попробуйте позже!</system:String>
 
+            <!-- HubConnectingView -->
             <system:String x:Key="HubConnectionStatusConnected">Соединение с сервером установлено!</system:String>
             <system:String x:Key="HubConnectionStatusConnecting">Подключение к серверу...</system:String>
             <system:String x:Key="HubConnectionStatusDisconnected">Сервер принудительно разорвал соединение!</system:String>
             <system:String x:Key="HubConnectionStatusReconnecting">Переподключение к серверу...</system:String>
             <system:String x:Key="HubConnectionStatusFailed">Не удалось установить соединение с сервером!</system:String>
-            
+
             <system:String x:Key="NotificationHubConnectionError">Не удалось подключиться к серверу. Попробуйте запустить приложение позже.</system:String>
+
+            <!-- CardRequestsView -->
+            <system:String x:Key="CustomerLabel">|  Заказчик: {0}</system:String>
+            <system:String x:Key="TargetAddressLabel">Место назначения</system:String>
+            <system:String x:Key="CardRequestCompletedStatusLabel">Карта доставлена</system:String>
+            <system:String x:Key="CardRequestNotCompletedStatusLabel">Карта не найдена</system:String>
+            <system:String x:Key="CardRequestCanceledStatusLabel">Запрос на получение карты отменён</system:String>
+            <system:String x:Key="CardRequestInProgressStatusLabel">В обработке...</system:String>
+            <system:String x:Key="CancelCardRequestButton">Отменить заявку</system:String>
+            <system:String x:Key="PrevButton">Назад</system:String>
+            <system:String x:Key="NextButton">Вперёд</system:String>
+            <system:String x:Key="PageStatusString">Страница {0} из {1} (Элементов на страницу: {2} / Всего элементов: {3} )</system:String>
+            <system:String x:Key="PageStatusStringForCustomer">Страница {0} из {1} (Элементов на страницу: {2})</system:String>
         </ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>
