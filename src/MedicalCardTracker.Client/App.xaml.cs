@@ -53,6 +53,7 @@ public partial class App : System.Windows.Application
     protected override async void OnStartup(StartupEventArgs e)
     {
         var configuration = _serviceProvider.GetRequiredService<ApplicationConfiguration>();
+        var customerView = _serviceProvider.GetRequiredService<CustomerView>();
         var hubConnectionHelper = _serviceProvider.GetRequiredService<HubConnectionHelper>();
         var hubConnectingView = _serviceProvider.GetRequiredService<HubConnectingView>();
 
@@ -70,16 +71,19 @@ public partial class App : System.Windows.Application
                 switch (hubConnectionHelper.HubConnectionStatus)
                 {
                     case HubConnectionStatus.Reconnecting:
-                        hubConnectingView.Show();
+                        if (customerView.IsVisible)
+                            hubConnectingView.Show();
                         break;
                     case HubConnectionStatus.Disconnected:
-                        hubConnectingView.Show();
+                        if (customerView.IsVisible)
+                            hubConnectingView.Show();
                         break;
                     case HubConnectionStatus.Failed:
                         hubConnectingView.Hide();
                         break;
                     case HubConnectionStatus.Connecting:
-                        hubConnectingView.Show();
+                        if (customerView.IsVisible)
+                            hubConnectingView.Show();
                         break;
                     case HubConnectionStatus.Connected:
                         hubConnectingView.Hide();

@@ -75,8 +75,8 @@ public class HubConnectionHelper : INotifyPropertyChanged
                 messageBoxText =
                     (string?)System.Windows.Application.Current.Resources["NotificationHubConnectionError"];
                 messageBoxCaption = (string?)(_configuration.IsRegistrar
-                    ? System.Windows.Application.Current.Resources["CustomerViewTitle"]
-                    : System.Windows.Application.Current.Resources["RegistrarViewTitle"]);
+                    ? System.Windows.Application.Current.Resources["RegistrarViewTitle"]
+                    : System.Windows.Application.Current.Resources["CustomerViewTitle"]);
             }
             catch (Exception)
             {
