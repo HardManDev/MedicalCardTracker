@@ -1,0 +1,60 @@
+﻿<Window x:Class="MedicalCardTracker.Client.Views.HubConnectingView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:vm="clr-namespace:MedicalCardTracker.Client.ViewModels"
+        xmlns:enum="clr-namespace:MedicalCardTracker.Client.Models.Enums"
+        d:DataContext="{d:DesignInstance Type=vm:HubConnectingViewModel}"
+        mc:Ignorable="d"
+
+        Width="512" Height="128"
+        ResizeMode="CanMinimize"
+        WindowStartupLocation="CenterScreen"
+        FontSize="16"
+        Closing="HubConnectingView_OnClosing">
+    <Window.Style>
+        <Style TargetType="{x:Type Window}">
+            <Setter Property="Title" Value="{DynamicResource CustomerViewTitle}" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Configuration.IsRegistrar}"
+                             Value="True">
+                    <Setter Property="Title" Value="{DynamicResource RegistrarViewTitle}" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Style>
+    <StackPanel Margin="8 0 8 0"
+                VerticalAlignment="Center" HorizontalAlignment="Center">
+        <Label VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label.Style>
+                <Style TargetType="{x:Type Label}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding HubConnectionHelper.HubConnectionStatus}"
+                                     Value="{x:Static enum:HubConnectionStatus.Connected}">
+                            <Setter Property="Content" Value="Соединение с сервером установлено!" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding HubConnectionHelper.HubConnectionStatus}"
+                                     Value="{x:Static enum:HubConnectionStatus.Connecting}">
+                            <Setter Property="Content" Value="Подключение к серверу..." />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding HubConnectionHelper.HubConnectionStatus}"
+                                     Value="{x:Static enum:HubConnectionStatus.Disconnected}">
+                            <Setter Property="Content" Value="Сервер принудительно разорвал соединение!" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding HubConnectionHelper.HubConnectionStatus}"
+                                     Value="{x:Static enum:HubConnectionStatus.Reconnecting}">
+                            <Setter Property="Content" Value="Переподключение к серверу..." />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding HubConnectionHelper.HubConnectionStatus}"
+                                     Value="{x:Static enum:HubConnectionStatus.Failed}">
+                            <Setter Property="Content" Value="Не удалось установить соединение с сервером!" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Label.Style>
+        </Label>
+        <ProgressBar Width="496" Height="5"
+                     IsIndeterminate="True" />
+    </StackPanel>
+</Window>
