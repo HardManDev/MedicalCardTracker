@@ -28,7 +28,7 @@ public class CardRequestsViewModel : BaseViewModel
 {
     private ObservableCollection<CardRequestVm> _cardRequests = new();
     private HubConnectionHelper _hubConnectionHelper;
-    private int _itemsPerPage = 3;
+    private int _itemsPerPage = 100;
     private int _itemsTotalCount;
     private int _pageCount;
     private int _pageIndex = 1;

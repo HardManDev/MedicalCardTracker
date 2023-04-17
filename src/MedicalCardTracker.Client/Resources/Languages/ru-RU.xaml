@@ -45,6 +45,9 @@
             <system:String x:Key="NextButton">Вперёд</system:String>
             <system:String x:Key="PageStatusString">Страница {0} из {1} (Элементов на страницу: {2} / Всего элементов: {3} )</system:String>
             <system:String x:Key="PageStatusStringForCustomer">Страница {0} из {1} (Элементов на страницу: {2})</system:String>
+
+            <!-- TaskbarIconView -->
+            <system:String x:Key="ExitHeader">Выход</system:String>
         </ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>
