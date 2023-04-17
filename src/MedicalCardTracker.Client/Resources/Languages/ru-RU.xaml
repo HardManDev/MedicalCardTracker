@@ -21,6 +21,12 @@
             <system:String x:Key="RequestSendingProgressSuccessTip">Заявка успешно отправлена! (Вы получите уведомление о статусе обработки)</system:String>
             <system:String x:Key="RequestSendingProgressFailedTip">Ошибка отправки заявки, попробуйте позже!</system:String>
 
+            <system:String x:Key="HubConnectionStatusConnected">Соединение с сервером установлено!</system:String>
+            <system:String x:Key="HubConnectionStatusConnecting">Подключение к серверу...</system:String>
+            <system:String x:Key="HubConnectionStatusDisconnected">Сервер принудительно разорвал соединение!</system:String>
+            <system:String x:Key="HubConnectionStatusReconnecting">Переподключение к серверу...</system:String>
+            <system:String x:Key="HubConnectionStatusFailed">Не удалось установить соединение с сервером!</system:String>
+            
             <system:String x:Key="NotificationHubConnectionError">Не удалось подключиться к серверу. Попробуйте запустить приложение позже.</system:String>
         </ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>

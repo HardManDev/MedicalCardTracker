@@ -32,23 +32,23 @@
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding HubConnectionHelper.HubConnectionStatus}"
                                      Value="{x:Static enum:HubConnectionStatus.Connected}">
-                            <Setter Property="Content" Value="Соединение с сервером установлено!" />
+                            <Setter Property="Content" Value="{DynamicResource HubConnectionStatusConnected}" />
                         </DataTrigger>
                         <DataTrigger Binding="{Binding HubConnectionHelper.HubConnectionStatus}"
                                      Value="{x:Static enum:HubConnectionStatus.Connecting}">
-                            <Setter Property="Content" Value="Подключение к серверу..." />
+                            <Setter Property="Content" Value="{DynamicResource HubConnectionStatusConnecting}" />
                         </DataTrigger>
                         <DataTrigger Binding="{Binding HubConnectionHelper.HubConnectionStatus}"
                                      Value="{x:Static enum:HubConnectionStatus.Disconnected}">
-                            <Setter Property="Content" Value="Сервер принудительно разорвал соединение!" />
+                            <Setter Property="Content" Value="{DynamicResource HubConnectionStatusDisconnected}" />
                         </DataTrigger>
                         <DataTrigger Binding="{Binding HubConnectionHelper.HubConnectionStatus}"
                                      Value="{x:Static enum:HubConnectionStatus.Reconnecting}">
-                            <Setter Property="Content" Value="Переподключение к серверу..." />
+                            <Setter Property="Content" Value="{DynamicResource HubConnectionStatusReconnecting}" />
                         </DataTrigger>
                         <DataTrigger Binding="{Binding HubConnectionHelper.HubConnectionStatus}"
                                      Value="{x:Static enum:HubConnectionStatus.Failed}">
-                            <Setter Property="Content" Value="Не удалось установить соединение с сервером!" />
+                            <Setter Property="Content" Value="{DynamicResource HubConnectionStatusFailed}" />
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
