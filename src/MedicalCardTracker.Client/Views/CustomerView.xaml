@@ -32,8 +32,16 @@
                 <RowDefinition />
                 <RowDefinition />
                 <RowDefinition />
+                <RowDefinition />
             </Grid.RowDefinitions>
-            <GroupBox Grid.Row="0"
+            <Grid Grid.Row="0">
+                <Button Margin="4"
+                        Padding="4"
+                        FontSize="22"
+                        Content="{DynamicResource OpenCardRequestsViewButton}"
+                        Command="{Binding OpenCardRequestsViewCommand}" />
+            </Grid>
+            <GroupBox Grid.Row="1"
                       Padding="4"
                       Header="{DynamicResource PatientGroupBoxHeader}">
                 <Grid>
@@ -60,7 +68,7 @@
                              Text="{Binding PatientFullName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 </Grid>
             </GroupBox>
-            <StackPanel Grid.Row="1"
+            <StackPanel Grid.Row="2"
                         Orientation="Vertical">
                 <Label Content="{DynamicResource DescriptionLabel}" />
                 <TextBox Height="Auto"
@@ -70,7 +78,7 @@
                          AcceptsReturn="True"
                          Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </StackPanel>
-            <Grid Grid.Row="2"
+            <Grid Grid.Row="3"
                   Height="48"
                   Margin="4 8 4 0">
                 <Grid.ColumnDefinitions>
