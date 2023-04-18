@@ -48,12 +48,21 @@
 
             <!-- TaskbarIconView -->
             <system:String x:Key="ExitHeader">Выход</system:String>
+            <system:String x:Key="ConfigHeader">Настройки</system:String>
 
             <!-- TaskbarNotifyIcon -->
             <system:String x:Key="NewCardRequestNotifyTitle">Новая заявка на получение карты пациента!</system:String>
             <system:String x:Key="CardRequestCanceledNotifyTitle">Заказчик отменил заказ карты пациента!</system:String>
             <system:String x:Key="CardRequestCompletedNotifyTitle">Карта пациента скоро будет доставлена</system:String>
             <system:String x:Key="CardRequestNotCompletedNotifyTitle">Карта пациента не найдена!</system:String>
+
+            <!-- ConfigureView -->
+            <system:String x:Key="ConfigureViewTitle">Medical Card Tracker Client - Настройки</system:String>
+            <system:String x:Key="BaseApiUrlLabel">Базовый путь API (например: http://localhost:5445)</system:String>
+            <system:String x:Key="CustomerHeader">Заказчик</system:String>
+            <system:String x:Key="RegistrarMode">Режим картотеки</system:String>
+            <system:String x:Key="OpenCurrentDirectoryButton">Открыть папку приложения</system:String>
+            <system:String x:Key="RegistrarModeWarning">Для включения этой настройки необходимо перезапустить приложение!</system:String>
         </ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

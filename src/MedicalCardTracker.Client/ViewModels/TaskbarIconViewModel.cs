@@ -14,28 +14,38 @@ namespace MedicalCardTracker.Client.ViewModels;
 public class TaskbarIconViewModel : BaseViewModel
 {
     private readonly CardRequestsView _cardRequestsView;
+    private readonly ConfigurationView _configurationView;
     private readonly CustomerView _customerView;
 
     public TaskbarIconViewModel(IMapper mapper,
         IMediator mediator,
         ApplicationConfiguration configuration,
         CustomerView customerView,
-        CardRequestsView cardRequestsView)
+        CardRequestsView cardRequestsView,
+        ConfigurationView configurationView)
         : base(mapper, mediator, configuration)
     {
         _customerView = customerView;
         _cardRequestsView = cardRequestsView;
+        _configurationView = configurationView;
 
         ExitCommand = new RelayCommand(ExitCommand_Execute, o => true);
         OpenCustomerViewCommand = new RelayCommand(OpenCustomerViewCommand_Execute, o => true);
         OpenCardRequestsCommand = new RelayCommand(OpenCardRequestsCommand_Execute, o => true);
         OpenMainViewCommand = new RelayCommand(OpenMainViewCommand_Execute, o => true);
+        OpenConfigViewCommand = new RelayCommand(OpenConfigViewCommand_Execute, o => true);
     }
 
     public RelayCommand ExitCommand { get; }
     public RelayCommand OpenCustomerViewCommand { get; }
     public RelayCommand OpenCardRequestsCommand { get; }
     public RelayCommand OpenMainViewCommand { get; }
+    public RelayCommand OpenConfigViewCommand { get; }
+
+    private void OpenConfigViewCommand_Execute(object obj)
+    {
+        _configurationView.Show();
+    }
 
     private void OpenMainViewCommand_Execute(object obj)
     {

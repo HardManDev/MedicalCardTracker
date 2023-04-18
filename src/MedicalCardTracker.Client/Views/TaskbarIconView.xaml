@@ -55,6 +55,9 @@
                     </MenuItem.Style>
                 </MenuItem>
                 <Separator />
+                <MenuItem Command="{Binding OpenConfigViewCommand}"
+                          Header="{DynamicResource ConfigHeader}" />
+                <Separator />
                 <MenuItem Header="{DynamicResource ExitHeader}"
                           Command="{Binding ExitCommand}" />
             </ContextMenu>

@@ -66,6 +66,8 @@ public partial class App : System.Windows.Application
         services.AddSingleton<CardRequestsViewModel>();
         services.AddSingleton<TaskbarIconView>();
         services.AddSingleton<TaskbarIconViewModel>();
+        services.AddSingleton<ConfigurationView>();
+        services.AddSingleton<ConfigurationViewModel>();
 
         return services;
     }
