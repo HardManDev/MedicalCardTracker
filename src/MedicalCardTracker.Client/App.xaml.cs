@@ -117,19 +117,16 @@ public partial class App : System.Windows.Application
                 switch (hubConnectionHelper.HubConnectionStatus)
                 {
                     case HubConnectionStatus.Reconnecting:
-                        if (customerView.IsVisible || cardRequestsView.IsVisible)
-                            hubConnectingView.Show();
+                        hubConnectingView.Show();
                         break;
                     case HubConnectionStatus.Disconnected:
-                        if (customerView.IsVisible || cardRequestsView.IsVisible)
-                            hubConnectingView.Show();
+                        hubConnectingView.Show();
                         break;
                     case HubConnectionStatus.Failed:
                         hubConnectingView.Hide();
                         break;
                     case HubConnectionStatus.Connecting:
-                        if (customerView.IsVisible || cardRequestsView.IsVisible)
-                            hubConnectingView.Show();
+                        hubConnectingView.Show();
                         break;
                     case HubConnectionStatus.Connected:
                         hubConnectingView.Hide();
