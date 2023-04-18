@@ -61,6 +61,8 @@ public partial class App : System.Windows.Application
         services.AddSingleton<HubConnectingViewModel>();
         services.AddSingleton<CardRequestsView>();
         services.AddSingleton<CardRequestsViewModel>();
+        services.AddSingleton<TaskbarIconView>();
+        services.AddSingleton<TaskbarIconViewModel>();
 
         return services;
     }
@@ -70,6 +72,7 @@ public partial class App : System.Windows.Application
         var configuration = _serviceProvider.GetRequiredService<ApplicationConfiguration>();
         var customerView = _serviceProvider.GetRequiredService<CustomerView>();
         var cardRequestsView = _serviceProvider.GetRequiredService<CardRequestsView>();
+        var taskbarIconView = _serviceProvider.GetRequiredService<TaskbarIconView>();
         var hubConnectionHelper = _serviceProvider.GetRequiredService<HubConnectionHelper>();
         var hubConnectingView = _serviceProvider.GetRequiredService<HubConnectingView>();
 
@@ -78,6 +81,8 @@ public partial class App : System.Windows.Application
 
         Log.Information("Application has been started...");
 
+        taskbarIconView.Show();
+        taskbarIconView.Hide();
 
         hubConnectingView.Show();
 

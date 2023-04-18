@@ -45,6 +45,15 @@
             <system:String x:Key="NextButton">Вперёд</system:String>
             <system:String x:Key="PageStatusString">Страница {0} из {1} (Элементов на страницу: {2} / Всего элементов: {3} )</system:String>
             <system:String x:Key="PageStatusStringForCustomer">Страница {0} из {1} (Элементов на страницу: {2})</system:String>
+
+            <!-- TaskbarIconView -->
+            <system:String x:Key="ExitHeader">Выход</system:String>
+
+            <!-- TaskbarNotifyIcon -->
+            <system:String x:Key="NewCardRequestNotifyTitle">Новая заявка на получение карты пациента!</system:String>
+            <system:String x:Key="CardRequestCanceledNotifyTitle">Заказчик отменил заказ карты пациента!</system:String>
+            <system:String x:Key="CardRequestCompletedNotifyTitle">Карта пациента скоро будет доставлена</system:String>
+            <system:String x:Key="CardRequestNotCompletedNotifyTitle">Карта пациента не найдена!</system:String>
         </ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>
