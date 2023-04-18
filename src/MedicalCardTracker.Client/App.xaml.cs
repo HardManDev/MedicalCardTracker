@@ -25,6 +25,9 @@ namespace MedicalCardTracker.Client;
 
 public partial class App : System.Windows.Application
 {
+#if !DEBUG
+    private MutexHelper? _mutexHelper;
+#endif
     private readonly IServiceProvider _serviceProvider;
 
     public App()
@@ -76,6 +79,28 @@ public partial class App : System.Windows.Application
         var hubConnectionHelper = _serviceProvider.GetRequiredService<HubConnectionHelper>();
         var hubConnectingView = _serviceProvider.GetRequiredService<HubConnectingView>();
 
+#if !DEBUG
+        _mutexHelper = new MutexHelper("MedicalCardTracker.Client", "MedicalCardTracker.Client-Pipe");
+        _mutexHelper.DuplicateInstanceStartup += (sender, args) =>
+        {
+            System.Windows.Application.Current.Dispatcher.Invoke(() =>
+            {
+                if (configuration.IsRegistrar)
+                {
+                    cardRequestsView.Show();
+                    cardRequestsView.Topmost = true;
+                    cardRequestsView.Topmost = false;
+                }
+                else
+                {
+                    customerView.Show();
+                    customerView.Topmost = true;
+                    customerView.Topmost = false;
+                }
+            });
+        };
+#endif
+
         if (configuration.IsWriteLog)
             Log.Logger = Assembly.GetExecutingAssembly().GetLogger();
 
@@ -124,5 +149,13 @@ public partial class App : System.Windows.Application
 #endif
 
         base.OnStartup(e);
+    }
+
+    protected override void OnExit(ExitEventArgs e)
+    {
+#if !DEBUG
+        _mutexHelper?.Dispose();
+#endif
+        base.OnExit(e);
     }
 }
