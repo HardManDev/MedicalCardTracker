@@ -10,7 +10,8 @@
 
         Width="0" Height="0"
         Visibility="Hidden">
-    <tb:TaskbarIcon Visibility="Visible"
+    <tb:TaskbarIcon x:Name="TaskbarNotifyIcon"
+                    Visibility="Visible"
                     IconSource="/Resources/Assets/Icons/Icon.ico"
                     LeftClickCommand="{Binding OpenMainViewCommand}">
         <tb:TaskbarIcon.Style>

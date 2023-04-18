@@ -81,7 +81,6 @@ public partial class App : System.Windows.Application
 
         Log.Information("Application has been started...");
 
-
         taskbarIconView.Show();
         taskbarIconView.Hide();
 
