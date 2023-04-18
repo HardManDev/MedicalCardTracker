@@ -20,7 +20,7 @@
     <RepositoryUrl>https://github.com/HardManDev/MedicalCardTracker.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <NeutralLanguage>ru-BY</NeutralLanguage>
+    <NeutralLanguage>ru-RU</NeutralLanguage>
     <ApplicationIcon>Resources\Assets\Icons\Icon.ico</ApplicationIcon>
   </PropertyGroup>
 

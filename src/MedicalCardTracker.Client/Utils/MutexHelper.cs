@@ -51,10 +51,17 @@ public class MutexHelper : IDisposable
 
     public void Dispose()
     {
-        _mutex?.ReleaseMutex();
-        _pipeReader?.Dispose();
-        _pipeWriter?.Dispose();
-        _pipeServer?.Dispose();
+        try
+        {
+            _mutex?.ReleaseMutex();
+            _pipeReader?.Dispose();
+            _pipeWriter?.Dispose();
+            _pipeServer?.Dispose();
+        }
+        catch (Exception)
+        {
+            Environment.Exit(0);
+        }
     }
 
     public event EventHandler? DuplicateInstanceStartup;
