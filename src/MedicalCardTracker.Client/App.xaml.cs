@@ -32,13 +32,20 @@ public partial class App : System.Windows.Application
 
     public App()
     {
-        Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("ru-BY");
-        Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo("ru-BY");
+        try
+        {
+            Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("ru-RU");
+            Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo("ru-RU");
 
-        FrameworkElement.LanguageProperty.OverrideMetadata(
-            typeof(FrameworkElement),
-            new FrameworkPropertyMetadata(
-                XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
+            FrameworkElement.LanguageProperty.OverrideMetadata(
+                typeof(FrameworkElement),
+                new FrameworkPropertyMetadata(
+                    XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
+        }
+        catch (Exception)
+        {
+            // ignore
+        }
 
         _serviceProvider = ConfigureServices().BuildServiceProvider();
     }
@@ -85,7 +92,7 @@ public partial class App : System.Windows.Application
         _mutexHelper = new MutexHelper("MedicalCardTracker.Client", "MedicalCardTracker.Client-Pipe");
         _mutexHelper.DuplicateInstanceStartup += (sender, args) =>
         {
-            System.Windows.Application.Current.Dispatcher.Invoke(() =>
+            Current.Dispatcher.Invoke(() =>
             {
                 if (configuration.IsRegistrar)
                 {
