@@ -15,11 +15,11 @@ namespace MedicalCardTracker.Application.Client.Configuration;
 public class ApplicationConfiguration : INotifyPropertyChanged
 {
     private readonly string _basePath;
-    private string _apiBaseUrl;
-    private string _customerName;
+    private string _apiBaseUrl = string.Empty;
+    private string _customerName = string.Empty;
     private bool _isRegistrar;
     private bool _isWriteLog;
-    private string _targetAddress;
+    private string _targetAddress = string.Empty;
 
     public ApplicationConfiguration(string basePath)
     {
