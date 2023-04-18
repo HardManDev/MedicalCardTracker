@@ -1,0 +1,88 @@
+﻿<Window x:Class="MedicalCardTracker.Client.Views.ConfigurationView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:vm="clr-namespace:MedicalCardTracker.Client.ViewModels"
+        d:DataContext="{d:DesignInstance Type=vm:ConfigurationViewModel}"
+        mc:Ignorable="d"
+
+        Title="{DynamicResource ConfigureViewTitle}"
+        Width="512" SizeToContent="Height"
+        ResizeMode="CanMinimize"
+        WindowStartupLocation="CenterScreen"
+        FontSize="14"
+        Closing="ConfigurationView_OnClosing"
+        MouseRightButtonUp="ConfigurationView_OnMouseRightButtonUp">
+    <Grid Margin="8">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0"
+                   Content="{DynamicResource BaseApiUrlLabel}" />
+            <TextBox Grid.Row="2"
+                     Margin="4 -2 4 0"
+                     Height="24"
+                     IsEnabled="{Binding IsEditable}"
+                     VerticalContentAlignment="Center"
+                     Text="{Binding Configuration.ApiBaseUrl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        </Grid>
+        <GroupBox Grid.Row="1" Header="{DynamicResource CustomerHeader}">
+            <GroupBox.Style>
+                <Style TargetType="{x:Type GroupBox}">
+                    <Setter Property="Visibility" Value="Visible" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Configuration.IsRegistrar}"
+                                     Value="True">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </GroupBox.Style>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="164" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0" Grid.Column="0"
+                       Content="{DynamicResource TargetAddressLabel}" />
+                <TextBox Grid.Row="1" Grid.Column="0"
+                         Margin="4"
+                         Height="24"
+                         VerticalContentAlignment="Center"
+                         Text="{Binding Configuration.TargetAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <Label Grid.Row="0" Grid.Column="1"
+                       Content="{DynamicResource PatientFullNameLabel}" />
+                <TextBox Grid.Row="1" Grid.Column="1"
+                         Margin="4"
+                         Height="24"
+                         VerticalContentAlignment="Center"
+                         Text="{Binding Configuration.CustomerName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            </Grid>
+        </GroupBox>
+        <CheckBox Grid.Row="2"
+                  Margin="0 8 0 0"
+                  IsEnabled="{Binding IsEditable}"
+                  IsChecked="{Binding Configuration.IsRegistrar, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                  Command="{Binding RegistrarSwitchCommand}"
+                  Content="{DynamicResource RegistrarMode}" />
+        <Button Grid.Row="3"
+                Padding="4"
+                Margin="0 8 0 4"
+                Content="{DynamicResource OpenCurrentDirectoryButton}"
+                Command="{Binding OpenCurrentDirectoryCommand}" />
+    </Grid>
+</Window>
