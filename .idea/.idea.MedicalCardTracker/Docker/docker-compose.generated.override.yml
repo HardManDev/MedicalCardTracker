@@ -1,0 +1,22 @@
+# This is a generated file. Not intended for manual editing.
+version: "3.9"
+services:
+  app:
+    build:
+      context: "C:\\Users\\User\\Development\\MedicalCardTracker\\src\\MedicalCardTracker.Server"
+      dockerfile: "Dockerfile"
+      target: "base"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net7.0/MedicalCardTracker.Server.dll"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+    image: "medicalcardtracker.server:dev"
+    ports: []
+    volumes:
+    - "C:\\Users\\User\\Development\\MedicalCardTracker\\src\\MedicalCardTracker.Server:/app:rw"
+    - "C:\\Users\\User\\Development\\MedicalCardTracker:/src:rw"
+    - "C:\\Users\\User\\.nuget\\packages:/root/.nuget/packages"
+    working_dir: "/app"

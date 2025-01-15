@@ -9,6 +9,7 @@ using MedicalCardTracker.Database;
 using MedicalCardTracker.Server.Hubs;
 using MedicalCardTracker.Server.Middlewares;
 using MedicalCardTracker.Server.Requests.Behaviors;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 
 namespace MedicalCardTracker.Server;
@@ -21,6 +22,13 @@ public class Application
     public Application(string[] args)
     {
         _builder = WebApplication.CreateBuilder(args);
+
+        var port = Environment.GetEnvironmentVariable("PORT") ?? "5236";
+        _builder.WebHost.ConfigureKestrel(options =>
+        {
+            options.ListenAnyIP(int.Parse(port));
+        });
+
         _builder.Host.UseSerilog();
 
         ConfigureService(_builder.Services);
@@ -49,8 +57,9 @@ public class Application
 
             try
             {
-                serviceProvider.GetRequiredService<ApplicationDbContext>()
-                    .Database.EnsureCreated();
+                var dbContext = serviceProvider.GetRequiredService<ApplicationDbContext>();
+
+                dbContext.Database.Migrate();
             }
             catch (Exception e)
             {
